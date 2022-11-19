@@ -58,9 +58,8 @@ class GridTest {
     }
 
     @Test
-    fun gridCellsArePopulatedWithNeighboursDuringConfiguration() {
+    fun gridCellsArePopulatedWithNeighboursDuringConstruction() {
         val grid = Grid(2, 2)
-        grid.configureCells()
 
         val middleCell = grid.at(1, 1)
         assertNotNull(middleCell?.north)

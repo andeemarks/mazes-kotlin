@@ -1,6 +1,7 @@
 import kotlin.random.Random
 
 class Grid(val rows: Int, val columns: Int) {
+
     fun at(row: Int, column: Int): Cell? {
         if (row >= this.rows || column >= this.columns) {
             return null
@@ -17,7 +18,7 @@ class Grid(val rows: Int, val columns: Int) {
         return Cell(Random.nextInt(this.rows), Random.nextInt(this.columns))
     }
 
-    fun configureCells() {
+    private fun configureCells() {
         eachCell { cell -> configureCell(cell) }
     }
 
@@ -25,7 +26,7 @@ class Grid(val rows: Int, val columns: Int) {
         cells.forEach { row -> row.forEach { cell -> executor(cell) } }
     }
 
-    fun eachRow(executor: (cell: List<Cell>) -> Unit) {
+    private fun eachRow(executor: (row: List<Cell>) -> Unit) {
         cells.forEach { row -> executor(row) }
     }
 
@@ -43,14 +44,29 @@ class Grid(val rows: Int, val columns: Int) {
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {
-        var display = ""
+        var display = "+${"---+".repeat(columns)}\n"
+
         eachRow { row ->
+            var top = "|"
+            var bottom = "+"
             row.forEach { cell ->
-                display = display.plus("|${cell.row},${cell.column}|")
+//                println("|${cell}|")
+//                println("|${cell.east}|")
+                val body = "   "
+                val eastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
+                top = top.plus(body).plus(eastBoundary)
+                val southBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
+                val corner = "+"
+                bottom = bottom.plus(southBoundary).plus(corner)
             }
-            display += "\n"
+            display = display.plus(top).plus("\n")
+            display = display.plus(bottom).plus("\n")
         }
 
         return display.trim()
+    }
+
+    init {
+        this.configureCells()
     }
 }

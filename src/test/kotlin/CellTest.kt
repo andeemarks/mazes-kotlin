@@ -79,6 +79,7 @@ class CellTest {
         cell.unlink(otherCell)
 
         assertFalse(cell.isLinkedTo(otherCell))
+        assertFalse(cell.isLinkedTo(null))
     }
 
     @Test

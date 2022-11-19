@@ -15,7 +15,7 @@ data class Cell(val row: Int, val column: Int) {
         cell.links.remove(this)
     }
 
-    fun isLinkedTo(cell: Cell): Boolean {
+    fun isLinkedTo(cell: Cell?): Boolean {
         return this.links.contains(cell)
     }
 
