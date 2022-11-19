@@ -1,0 +1,71 @@
+import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+
+class GridTest {
+
+    @Test
+    fun gridsRememberTheirDimensions() {
+        val grid = Grid(3, 4)
+        assertEquals(3, grid.rows)
+        assertEquals(4, grid.columns)
+    }
+
+    @Test
+    fun gridsStartWithPopulatedCells() {
+        val grid = Grid(2, 1)
+        assertNotNull(grid.cells)
+        assertEquals(grid.cells[0][0], Cell(0, 0))
+        assertEquals(grid.cells[1][0], Cell(1, 0))
+    }
+
+    @Test
+    fun gridsCanReportOnACell() {
+        val grid = Grid(2, 1)
+        val cell = grid.at(1, 0)
+
+        assertNotNull(cell)
+    }
+
+    @Test
+    fun gridsReturnNullForCellsBeyondItsDimension() {
+        val grid = Grid(2, 1)
+
+        assertNull(grid.at(2, 0))
+        assertNull(grid.at(0, 2))
+        assertNull(grid.at(-1, 0))
+        assertNull(grid.at(0, -1))
+    }
+
+    @Test
+    fun gridsKnowTheirSize() {
+
+        assertEquals(42, Grid(6, 7).size)
+        assertEquals(0, Grid(0, 0).size)
+    }
+
+    @Test
+    fun gridsCanReturnARandomCell() {
+        val grid = Grid(200, 200)
+
+        val uniqueCells = mutableSetOf<Cell>()
+        for (count in 1..50) {
+            uniqueCells.add(grid.randomCell())
+        }
+
+        assertEquals(50, uniqueCells.size)
+    }
+
+    @Test
+    fun gridCellsArePopulatedWithNeighboursDuringConfiguration() {
+        val grid = Grid(2, 2)
+        grid.configureCells()
+
+        val middleCell = grid.at(1, 1)
+        assertNotNull(middleCell?.north)
+        assertNotNull(middleCell?.south)
+        assertNotNull(middleCell?.east)
+        assertNotNull(middleCell?.west)
+    }
+}
