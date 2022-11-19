@@ -18,14 +18,20 @@ class Grid(val rows: Int, val columns: Int) {
     }
 
     fun configureCells() {
-        cells.forEach { row -> row.forEach { cell -> configureCell(cell)} }
+        eachCell { cell -> configureCell(cell) }
     }
 
-    private fun configureCell(cell: Cell) {
+    private fun eachCell(executor: (cell: Cell) -> Cell) {
+        cells.forEach { row -> row.forEach { cell -> executor(cell)} }
+    }
+
+    private fun configureCell(cell: Cell): Cell {
          cell.north = this.at(cell.row - 1, cell.column)
          cell.south = this.at(cell.row -  1, cell.column)
          cell.east = this.at(cell.row - 1, cell.column)
          cell.west = this.at(cell.row - 1, cell.column)
+
+        return cell
     }
 
     val size: Int = this.rows * this.columns
