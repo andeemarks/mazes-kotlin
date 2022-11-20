@@ -11,9 +11,7 @@ class BinaryTree {
         cell.east?.let {neighbours.add(cell.east!!)}
 
         if (neighbours.isNotEmpty()) {
-            neighbours.shuffle()
-            val randomNeighbour = neighbours.first()
-            cell.link(randomNeighbour)
+            cell.link(neighbours.random())
         }
 
         return cell
