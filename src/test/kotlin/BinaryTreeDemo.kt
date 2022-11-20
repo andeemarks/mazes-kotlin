@@ -1,6 +1,6 @@
 import kotlin.test.Test
 
-class BinaryTreeTest {
+class BinaryTreeDemo {
     @Test
     fun manualTest() {
         val tree = BinaryTree()
