@@ -7,12 +7,8 @@ class BinaryTree {
 
     private fun initialiseCell(cell: Cell): Cell {
         val neighbours = mutableListOf<Cell>()
-        if (cell.north != null) {
-            neighbours.add(cell.north!!)
-        }
-        if (cell.east != null) {
-            neighbours.add(cell.east!!)
-        }
+        cell.north?.let {neighbours.add(cell.north!!)}
+        cell.east?.let {neighbours.add(cell.east!!)}
 
         if (neighbours.isNotEmpty()) {
             neighbours.shuffle()
