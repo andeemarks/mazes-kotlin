@@ -62,9 +62,9 @@ class GridTest {
         val grid = Grid(2, 2)
 
         val middleCell = grid.at(1, 1)
-        assertNotNull(middleCell?.north)
-        assertNotNull(middleCell?.south)
-        assertNotNull(middleCell?.east)
-        assertNotNull(middleCell?.west)
+        assertEquals(middleCell?.north, grid.at(0, 1))
+        assertEquals(middleCell?.south, grid.at(2, 1))
+        assertEquals(middleCell?.east, grid.at(1, 2))
+        assertEquals(middleCell?.west, grid.at(1, 0))
     }
 }

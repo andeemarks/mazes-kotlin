@@ -18,9 +18,6 @@ class Grid(val rows: Int, val columns: Int) {
         return Cell(Random.nextInt(this.rows), Random.nextInt(this.columns))
     }
 
-    private fun configureCells() {
-        eachCell { cell -> configureCell(cell) }
-    }
 
     fun eachCell(executor: (cell: Cell) -> Unit) {
         cells.forEach { row -> row.forEach { cell -> executor(cell) } }
@@ -30,11 +27,14 @@ class Grid(val rows: Int, val columns: Int) {
         cells.forEach { row -> executor(row) }
     }
 
+    private fun configureCells() {
+        eachCell(::configureCell)
+    }
     private fun configureCell(cell: Cell): Cell {
         cell.north = this.at(cell.row - 1, cell.column)
-        cell.south = this.at(cell.row - 1, cell.column)
-        cell.east = this.at(cell.row - 1, cell.column)
-        cell.west = this.at(cell.row - 1, cell.column)
+        cell.south = this.at(cell.row + 1, cell.column)
+        cell.east = this.at(cell.row, cell.column + 1)
+        cell.west = this.at(cell.row, cell.column - 1)
 
         return cell
     }
@@ -50,8 +50,6 @@ class Grid(val rows: Int, val columns: Int) {
             var top = "|"
             var bottom = "+"
             row.forEach { cell ->
-//                println("|${cell}|")
-//                println("|${cell.east}|")
                 val body = "   "
                 val eastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
                 top = top.plus(body).plus(eastBoundary)
