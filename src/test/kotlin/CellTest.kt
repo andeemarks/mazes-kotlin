@@ -1,16 +1,7 @@
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.ExpectedException
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class CellTest {
-
-    @Rule
-    @JvmField
-    var expectedException: ExpectedException = ExpectedException.none()
 
     @Test
     fun cellsRememberTheirLocation() {
@@ -91,13 +82,20 @@ class CellTest {
     fun cellsInTheSameLocationAreEqual() {
         assertEquals(Cell(2, 1), Cell(2,1))
     }
-//    @Test
-//    fun errorTestingForChangeSmallerThanTheSmallestCoin() {
-//        val changeCalculator = Cell(listOf(5, 10))
-//
-//        expectedException.expect(IllegalArgumentException::class.java)
-//        expectedException.expectMessage("The total 3 cannot be represented in the given currency.")
-//
-//        changeCalculator.computeMostEfficientChange(3)
-//    }
+
+    @Test
+    fun cellsKnowTheDistanceToTheirLinkedCells() {
+        val cell = Cell(0, 0)
+        val linkedCell = Cell(2, 1)
+        val anotherLinkedCell = Cell(2, 3)
+        val nonLinkedCell = Cell(2, 2)
+
+        cell.link(linkedCell)
+        cell.link(anotherLinkedCell)
+
+        assertNotNull(cell.distances())
+        assertEquals(1, cell.distances().forCell(linkedCell))
+        assertEquals(1, cell.distances().forCell(anotherLinkedCell))
+        assertNull(cell.distances().forCell(nonLinkedCell))
+    }
 }

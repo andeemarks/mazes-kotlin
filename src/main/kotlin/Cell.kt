@@ -19,4 +19,24 @@ data class Cell(val row: Int, val column: Int) {
         return this.links.contains(cell)
     }
 
+    fun distances(): Distances {
+        val distances = Distances(this)
+        var frontier = mutableListOf(this)
+
+        while (frontier.isNotEmpty()) {
+            val newFrontier = mutableListOf<Cell>()
+
+            frontier.forEach { cell ->
+                cell.links.forEach { linkedCell ->
+                    if (distances.forCell(linkedCell) == null) {
+                        distances.set(linkedCell, distances.forCell(cell)!! + 1)
+                        newFrontier.add(linkedCell)
+                    }
+                }
+            }
+            frontier = newFrontier
+        }
+        return distances
+    }
+
 }
