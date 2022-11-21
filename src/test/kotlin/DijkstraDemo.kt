@@ -10,7 +10,9 @@ class DijkstraDemo {
         val distances = start?.distances()
 
         grid.distances = distances!!
+        println(grid)
 
-        println(grid.toString())
+        grid.distances = distances.pathTo(grid.at(9, 6)!!)
+        println(grid)
     }
 }

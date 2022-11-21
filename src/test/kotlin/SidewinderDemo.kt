@@ -6,6 +6,6 @@ class SidewinderDemo {
         val tree = Sidewinder()
         val grid = tree.on(Grid(10, 10))
 
-        println(grid.toString())
+        println(grid)
     }
 }

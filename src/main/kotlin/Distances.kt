@@ -7,5 +7,23 @@ class Distances(val root: Cell) {
         cellDistances[cell] = distance
     }
 
+    fun pathTo(goal: Cell): Distances {
+        var current = goal
+        val breadcrumbs = Distances(root)
+        breadcrumbs.set(goal, forCell(current)!!)
+
+        do {
+            current.links.forEach { linkedCell ->
+                if (forCell(linkedCell)!! < cellDistances[current]!!) {
+                    breadcrumbs.set(linkedCell, forCell(linkedCell)!!)
+                    current = linkedCell
+                }
+            }
+        } while (current != root)
+        return breadcrumbs
+    }
+
+    fun length(): Int = cellDistances.size
+
     private var cellDistances: MutableMap<Cell, Int> = mutableMapOf(root to 0)
 }

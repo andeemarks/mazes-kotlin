@@ -6,6 +6,6 @@ class BinaryTreeDemo {
         val tree = BinaryTree()
         val grid = tree.on(Grid(10, 10))
 
-        println(grid.toString())
+        println(grid)
     }
 }
