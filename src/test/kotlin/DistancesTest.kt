@@ -1,7 +1,5 @@
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertIs
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class DistancesTest {
 
@@ -55,5 +53,19 @@ class DistancesTest {
 
         assertEquals(rootCell, path.root)
         assertTrue(path.length() > 1)
+    }
+
+    @Test
+    fun canFindTheLongestDistanceFromTheGoalCell() {
+        val tree = BinaryTree()
+        val grid: DistanceGrid = tree.on(DistanceGrid(3, 4)) as DistanceGrid
+
+        val rootCell = grid.at(0, 0)
+        val distances = rootCell!!.distances()
+
+        val (longestDistanceCell: Cell, longestDistance: Int) = distances.maxDistance()
+
+        assertTrue(longestDistance > 1)
+        assertEquals(longestDistance, distances.forCell(longestDistanceCell))
     }
 }
