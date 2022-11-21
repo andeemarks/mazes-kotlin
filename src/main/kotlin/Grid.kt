@@ -30,11 +30,12 @@ class Grid(val rows: Int, val columns: Int) {
     private fun configureCells() {
         eachCell(::configureCell)
     }
+
     private fun configureCell(cell: Cell): Cell {
-        cell.north = this.at(cell.row - 1, cell.column)
-        cell.south = this.at(cell.row + 1, cell.column)
-        cell.east = this.at(cell.row, cell.column + 1)
-        cell.west = this.at(cell.row, cell.column - 1)
+        cell.north = at(cell.row - 1, cell.column)
+        cell.south = at(cell.row + 1, cell.column)
+        cell.east = at(cell.row, cell.column + 1)
+        cell.west = at(cell.row, cell.column - 1)
 
         return cell
     }
@@ -47,21 +48,25 @@ class Grid(val rows: Int, val columns: Int) {
         var display = "+${"---+".repeat(columns)}\n"
 
         eachRow { row ->
-            var top = "|"
-            var bottom = "+"
-            row.forEach { cell ->
-                val body = "   "
-                val eastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
-                top = top.plus(body).plus(eastBoundary)
-                val southBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
-                val corner = "+"
-                bottom = bottom.plus(southBoundary).plus(corner)
-            }
-            display = display.plus(top).plus("\n")
-            display = display.plus(bottom).plus("\n")
+            val (rowTop, rowBottom) = rowToString(row)
+            display += "$rowTop\n$rowBottom\n"
         }
 
         return display.trim()
+    }
+
+    private fun rowToString(row: List<Cell>): Pair<String, String> {
+        val rowCorner = "+"
+        val cellBody = "   "
+        var rowTop = "|"
+        var rowBottom = "+"
+        row.forEach { cell ->
+            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
+            rowTop += "$cellBody$cellEastBoundary"
+            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
+            rowBottom += "$cellSouthBoundary$rowCorner"
+        }
+        return Pair(rowTop, rowBottom)
     }
 
     init {
