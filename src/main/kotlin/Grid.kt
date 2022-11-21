@@ -57,11 +57,11 @@ class Grid(val rows: Int, val columns: Int) {
 
     private fun rowToString(row: List<Cell>): Pair<String, String> {
         val rowCorner = "+"
-        val cellBody = "   "
         var rowTop = "|"
         var rowBottom = "+"
         row.forEach { cell ->
             val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
+            val cellBody = "   "
             rowTop += "$cellBody$cellEastBoundary"
             val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
             rowBottom += "$cellSouthBoundary$rowCorner"
