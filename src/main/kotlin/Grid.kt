@@ -69,7 +69,7 @@ open class Grid(val rows: Int, val columns: Int) {
         return Pair(rowTop, rowBottom)
     }
 
-    protected fun cellContentsFor(cell: Cell): String = " "
+    open fun cellContentsFor(cell: Cell): String = " "
 
     init {
         this.configureCells()
