@@ -23,7 +23,7 @@ class Grid(val rows: Int, val columns: Int) {
         cells.forEach { row -> row.forEach { cell -> executor(cell) } }
     }
 
-    private fun eachRow(executor: (row: List<Cell>) -> Unit) {
+    fun eachRow(executor: (row: List<Cell>) -> Unit) {
         cells.forEach { row -> executor(row) }
     }
 

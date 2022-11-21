@@ -1,9 +1,9 @@
 import kotlin.test.Test
 
-class BinaryTreeDemo {
+class SidewinderDemo {
     @Test
     fun manualTest() {
-        val tree = BinaryTree()
+        val tree = Sidewinder()
         val grid = tree.on(Grid(10, 10))
 
         println(grid.toString())
