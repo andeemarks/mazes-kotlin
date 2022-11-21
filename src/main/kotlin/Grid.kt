@@ -1,6 +1,6 @@
 import kotlin.random.Random
 
-class Grid(val rows: Int, val columns: Int) {
+open class Grid(val rows: Int, val columns: Int) {
 
     fun at(row: Int, column: Int): Cell? {
         if (row >= this.rows || column >= this.columns) {
@@ -61,13 +61,15 @@ class Grid(val rows: Int, val columns: Int) {
         var rowBottom = "+"
         row.forEach { cell ->
             val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
-            val cellBody = "   "
+            val cellBody = " ${cellContentsFor(cell)} "
             rowTop += "$cellBody$cellEastBoundary"
             val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
             rowBottom += "$cellSouthBoundary$rowCorner"
         }
         return Pair(rowTop, rowBottom)
     }
+
+    protected fun cellContentsFor(cell: Cell): String = " "
 
     init {
         this.configureCells()
