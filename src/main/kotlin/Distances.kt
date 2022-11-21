@@ -14,7 +14,7 @@ class Distances(val root: Cell) {
 
         do {
             current.links.forEach { linkedCell ->
-                if (forCell(linkedCell)!! < cellDistances[current]!!) {
+                if (forCell(linkedCell)!! < forCell(current)!!) {
                     breadcrumbs.set(linkedCell, forCell(linkedCell)!!)
                     current = linkedCell
                 }
