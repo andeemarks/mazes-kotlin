@@ -12,7 +12,12 @@ class DijkstraDemo {
         grid.distances = distances!!
         println(grid)
 
-        grid.distances = distances.pathTo(grid.at(9, 6)!!)
+        grid.distances = distances.pathTo(grid.at(8, 6)!!)
         println(grid)
+
+        val (newGoal, _) = distances.maxDistance()
+        grid.distances = distances.pathTo(newGoal)
+        println(grid)
+
     }
 }
