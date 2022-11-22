@@ -1,6 +1,12 @@
 import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
+private const val ROW_CORNER = "┼"
+
+private const val ROW_SIDE = "│"
+
+private const val ROW_BOTTOM = "─"
+
 open class Grid(val rows: Int, val columns: Int) {
 
     fun at(row: Int, column: Int): Cell? {
@@ -46,7 +52,7 @@ open class Grid(val rows: Int, val columns: Int) {
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {
-        var display = "┼${"───┼".repeat(columns)}\n"
+        var display = "$ROW_CORNER${"${ROW_BOTTOM}${ROW_BOTTOM}${ROW_BOTTOM}$ROW_CORNER".repeat(columns)}\n"
 
         eachRow { row ->
             val (rowTop, rowBottom) = rowToString(row)
@@ -57,15 +63,14 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     private fun rowToString(row: List<Cell>): Pair<String, String> {
-        val rowCorner = "┼"
-        var rowTop = "│"
-        var rowBottom = "┼"
+        var rowTop = ROW_SIDE
+        var rowBottom = ROW_CORNER
         row.forEach { cell ->
-            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "│"
+            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else ROW_SIDE
             val cellBody = " ${cellContentsFor(cell)} "
             rowTop += "$cellBody$cellEastBoundary"
-            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "───"
-            rowBottom += "$cellSouthBoundary$rowCorner"
+            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "${ROW_BOTTOM}${ROW_BOTTOM}${ROW_BOTTOM}"
+            rowBottom += "$cellSouthBoundary$ROW_CORNER"
         }
         return Pair(rowTop, rowBottom)
     }
