@@ -46,7 +46,7 @@ open class Grid(val rows: Int, val columns: Int) {
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {
-        var display = "+${"---+".repeat(columns)}\n"
+        var display = "┼${"───┼".repeat(columns)}\n"
 
         eachRow { row ->
             val (rowTop, rowBottom) = rowToString(row)
@@ -57,14 +57,14 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     private fun rowToString(row: List<Cell>): Pair<String, String> {
-        val rowCorner = "+"
-        var rowTop = "|"
-        var rowBottom = "+"
+        val rowCorner = "┼"
+        var rowTop = "│"
+        var rowBottom = "┼"
         row.forEach { cell ->
-            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "|"
+            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "│"
             val cellBody = " ${cellContentsFor(cell)} "
             rowTop += "$cellBody$cellEastBoundary"
-            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "---"
+            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "───"
             rowBottom += "$cellSouthBoundary$rowCorner"
         }
         return Pair(rowTop, rowBottom)
