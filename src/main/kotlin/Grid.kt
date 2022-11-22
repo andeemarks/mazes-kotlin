@@ -2,9 +2,7 @@ import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
 private const val ROW_CORNER = "┼"
-
 private const val ROW_SIDE = "│"
-
 private const val ROW_BOTTOM = "─"
 private const val CELL_BOTTOM = "$ROW_BOTTOM$ROW_BOTTOM$ROW_BOTTOM"
 
@@ -73,10 +71,7 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     open fun cellContentsFor(cell: Cell): String = " "
-
-    open fun backgroundColourFor(cell: Cell): TextStyle? {
-        return null
-    }
+    open fun backgroundColourFor(cell: Cell): TextStyle? = null
 
     init {
         this.configureCells()

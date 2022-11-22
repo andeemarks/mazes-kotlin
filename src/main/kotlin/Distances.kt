@@ -1,4 +1,6 @@
 class Distances(val root: Cell) {
+    private var cellDistances: MutableMap<Cell, Int> = mutableMapOf(root to 0)
+
     fun forCell(cell: Cell): Int? {
         return cellDistances[cell]
     }
@@ -24,6 +26,7 @@ class Distances(val root: Cell) {
     }
 
     fun length(): Int = cellDistances.size
+
     fun maxDistance(): Pair<Cell, Int> {
         var maxDistance = 0
         var maxCell = root
@@ -38,5 +41,4 @@ class Distances(val root: Cell) {
         return Pair(maxCell, maxDistance)
     }
 
-    private var cellDistances: MutableMap<Cell, Int> = mutableMapOf(root to 0)
 }
