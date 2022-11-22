@@ -18,7 +18,7 @@ class CellTest {
 
     @Test
     fun cellsCanBeLinked() {
-        val cell = Cell(3, 4,)
+        val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
         cell.link(otherCell)
@@ -28,7 +28,7 @@ class CellTest {
 
     @Test
     fun cellLinksAreBidirectional() {
-        val cell = Cell(3, 4,)
+        val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
         cell.link(otherCell)
@@ -38,7 +38,7 @@ class CellTest {
 
     @Test
     fun linksCanBeBroken() {
-        val cell = Cell(3, 4,)
+        val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
         cell.link(otherCell)
@@ -49,7 +49,7 @@ class CellTest {
 
     @Test
     fun linksAreBrokenBidiredctionally() {
-        val cell = Cell(3, 4,)
+        val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
         cell.link(otherCell)
@@ -60,7 +60,7 @@ class CellTest {
 
     @Test
     fun cellsCanBeQueriedForALink() {
-        val cell = Cell(3, 4,)
+        val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
         cell.link(otherCell)

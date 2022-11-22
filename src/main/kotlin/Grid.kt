@@ -8,18 +8,19 @@ private const val CELL_BOTTOM = "$ROW_BOTTOM$ROW_BOTTOM$ROW_BOTTOM"
 
 open class Grid(val rows: Int, val columns: Int) {
 
-    fun at(row: Int, column: Int): Cell? {
-        val validRow = (0 until rows).contains(row)
-        if (!validRow) {
-            return null
-        }
-
-        val validColumn = (0 until columns).contains(column)
-        if (!validColumn) {
-            return null
-        }
+    fun at(row: Int, column: Int): Cell {
+        require((0 until rows).contains(row))
+        require((0 until columns).contains(column))
 
         return cells[row][column]
+    }
+
+    private fun internalAt(row: Int, column: Int): Cell? {
+        return try {
+            at(row, column)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
     }
 
     fun randomCell(): Cell {
@@ -40,10 +41,10 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     private fun configureCell(cell: Cell): Cell {
-        cell.north = at(cell.row - 1, cell.column)
-        cell.south = at(cell.row + 1, cell.column)
-        cell.east = at(cell.row, cell.column + 1)
-        cell.west = at(cell.row, cell.column - 1)
+        cell.north = internalAt(cell.row - 1, cell.column)
+        cell.south = internalAt(cell.row + 1, cell.column)
+        cell.east = internalAt(cell.row, cell.column + 1)
+        cell.west = internalAt(cell.row, cell.column - 1)
 
         return cell
     }

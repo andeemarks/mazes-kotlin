@@ -1,7 +1,6 @@
+package demos
+
 import com.github.ajalt.mordant.rendering.TextColors
-import demos.BinaryTreeDemo
-import demos.DijkstraDemo
-import demos.SidewinderDemo
 
 fun main(args: Array<String>) {
     println("demos.BinaryTreeDemo...")

@@ -1,5 +1,7 @@
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertTrue
 
 class DistancesTest {
 
@@ -47,9 +49,9 @@ class DistancesTest {
 
         val rootCell = grid.at(0, 0)
         val goalCell = grid.at(2, 3)
-        val distances = rootCell!!.distances()
+        val distances = rootCell.distances()
 
-        val path = distances.pathTo(goalCell!!)
+        val path = distances.pathTo(goalCell)
 
         assertEquals(rootCell, path.root)
         assertTrue(path.length() > 1)
@@ -61,7 +63,7 @@ class DistancesTest {
         val grid: DistanceGrid = tree.on(DistanceGrid(3, 4)) as DistanceGrid
 
         val rootCell = grid.at(0, 0)
-        val distances = rootCell!!.distances()
+        val distances = rootCell.distances()
 
         val (longestDistanceCell: Cell, longestDistance: Int) = distances.maxDistance()
 

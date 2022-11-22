@@ -1,5 +1,6 @@
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
@@ -32,10 +33,10 @@ class GridTest {
     fun gridsReturnNullForCellsBeyondItsDimension() {
         val grid = Grid(2, 1)
 
-        assertNull(grid.at(2, 0))
-        assertNull(grid.at(0, 2))
-        assertNull(grid.at(-1, 0))
-        assertNull(grid.at(0, -1))
+        assertFailsWith<IllegalArgumentException> { grid.at(2, 0) }
+        assertFailsWith<IllegalArgumentException> { grid.at(0, 2) }
+        assertFailsWith<IllegalArgumentException> { grid.at(-1, 0) }
+        assertFailsWith<IllegalArgumentException> { grid.at(0, -1) }
     }
 
     @Test
@@ -59,13 +60,13 @@ class GridTest {
 
     @Test
     fun gridCellsArePopulatedWithNeighboursDuringConstruction() {
-        val grid = Grid(2, 2)
+        val grid = Grid(3, 3)
 
         val middleCell = grid.at(1, 1)
-        assertEquals(middleCell?.north, grid.at(0, 1))
-        assertEquals(middleCell?.south, grid.at(2, 1))
-        assertEquals(middleCell?.east, grid.at(1, 2))
-        assertEquals(middleCell?.west, grid.at(1, 0))
+        assertEquals(middleCell.north, grid.at(0, 1))
+        assertEquals(middleCell.south, grid.at(2, 1))
+        assertEquals(middleCell.east, grid.at(1, 2))
+        assertEquals(middleCell.west, grid.at(1, 0))
     }
 
     @Test

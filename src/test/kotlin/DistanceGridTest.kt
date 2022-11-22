@@ -31,7 +31,7 @@ class DistanceGridTest {
         val tree = BinaryTree()
         val grid: DistanceGrid = tree.on(DistanceGrid(10, 10)) as DistanceGrid
 
-        val distances = grid.at(0, 0)!!.distances()
+        val distances = grid.at(0, 0).distances()
         grid.distances = distances
 
         assertNotNull(grid.backgroundColourFor(grid.randomCell()))

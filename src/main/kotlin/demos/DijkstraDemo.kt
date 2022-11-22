@@ -7,19 +7,19 @@ import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 
-class DijkstraDemo(val style: TextStyle = TextColors.white) {
+class DijkstraDemo(private val style: TextStyle = TextColors.white) {
     fun manualTest() {
         val tree = BinaryTree()
         val grid: DistanceGrid = tree.on(DistanceGrid(10, 10)) as DistanceGrid
 
         val start = grid.at(0, 0)
-        val distances = start?.distances()
+        val distances = start.distances()
 
-        grid.distances = distances!!
+        grid.distances = distances
         val t = Terminal(AnsiLevel.TRUECOLOR)
         t.println((style)(grid.toString()))
 
-        grid.distances = distances.pathTo(grid.at(8, 6)!!)
+        grid.distances = distances.pathTo(grid.at(8, 6))
         t.println((style)(grid.toString()))
 
         val (newGoal, _) = distances.maxDistance()
