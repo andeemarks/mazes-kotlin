@@ -1,10 +1,13 @@
+package demos
+
+import BinaryTree
+import DistanceGrid
 import com.github.ajalt.mordant.rendering.AnsiLevel
-import kotlin.test.Test
-import com.github.ajalt.mordant.rendering.TextColors.*
+import com.github.ajalt.mordant.rendering.TextColors
+import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 
-class DijkstraDemo {
-    @Test
+class DijkstraDemo(val style: TextStyle = TextColors.white) {
     fun manualTest() {
         val tree = BinaryTree()
         val grid: DistanceGrid = tree.on(DistanceGrid(10, 10)) as DistanceGrid
@@ -14,7 +17,6 @@ class DijkstraDemo {
 
         grid.distances = distances!!
         val t = Terminal(AnsiLevel.TRUECOLOR)
-        val style = (black on brightWhite)
         t.println((style)(grid.toString()))
 
         grid.distances = distances.pathTo(grid.at(8, 6)!!)
