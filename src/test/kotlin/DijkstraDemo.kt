@@ -14,14 +14,15 @@ class DijkstraDemo {
 
         grid.distances = distances!!
         val t = Terminal(AnsiLevel.TRUECOLOR)
-        t.println((black on brightWhite)(grid.toString()))
+        val style = (black on brightWhite)
+        t.println((style)(grid.toString()))
 
         grid.distances = distances.pathTo(grid.at(8, 6)!!)
-        t.println(yellow(grid.toString()))
+        t.println((style)(grid.toString()))
 
         val (newGoal, _) = distances.maxDistance()
         grid.distances = distances.pathTo(newGoal)
-        t.println(blue(grid.toString()))
+        t.println((style)(grid.toString()))
 
     }
 }
