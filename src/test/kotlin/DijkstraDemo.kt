@@ -1,4 +1,8 @@
+import com.github.ajalt.mordant.rendering.AnsiLevel
 import kotlin.test.Test
+import com.github.ajalt.mordant.rendering.TextColors.*
+import com.github.ajalt.mordant.rendering.TextStyles.*
+import com.github.ajalt.mordant.terminal.Terminal
 
 class DijkstraDemo {
     @Test
@@ -10,14 +14,15 @@ class DijkstraDemo {
         val distances = start?.distances()
 
         grid.distances = distances!!
-        println(grid)
+        val t = Terminal(AnsiLevel.TRUECOLOR)
+        t.println(red(grid.toString()))
 
         grid.distances = distances.pathTo(grid.at(8, 6)!!)
-        println(grid)
+        t.println(yellow(grid.toString()))
 
         val (newGoal, _) = distances.maxDistance()
         grid.distances = distances.pathTo(newGoal)
-        println(grid)
+        t.println(blue(grid.toString()))
 
     }
 }

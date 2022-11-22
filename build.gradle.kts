@@ -10,7 +10,8 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    
+    implementation("com.github.ajalt.mordant:mordant:2.0.0-beta8")
+
     testImplementation("junit:junit:4.13.2")
     testImplementation(kotlin("test-junit"))
 }
