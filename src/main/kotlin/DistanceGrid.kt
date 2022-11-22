@@ -23,14 +23,10 @@ class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
     }
 
     override fun backgroundColourFor(cell: Cell): TextStyle {
-        val distance = distances.forCell(cell)
-
-        if (distance == null || distance == 0) return TextColors.white
+        val distance = distances.forCell(cell) ?: return TextColors.white
 
         val intensity = (_maximumDistance - distance).toFloat() / _maximumDistance
-//        val dark = (255 * intensity).roundToInt()
-//        val bright = 128 + (127 * intensity).roundToInt()
 
-        return TextColors.rgb(intensity, intensity, intensity)
+        return TextColors.rgb(0, 0, intensity)
     }
 }

@@ -14,7 +14,7 @@ class DijkstraDemo {
 
         grid.distances = distances!!
         val t = Terminal(AnsiLevel.TRUECOLOR)
-        t.println(red(grid.toString()))
+        t.println((black on brightWhite)(grid.toString()))
 
         grid.distances = distances.pathTo(grid.at(8, 6)!!)
         t.println(yellow(grid.toString()))
