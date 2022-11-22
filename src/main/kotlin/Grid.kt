@@ -9,11 +9,13 @@ private const val CELL_BOTTOM = "$ROW_BOTTOM$ROW_BOTTOM$ROW_BOTTOM"
 open class Grid(val rows: Int, val columns: Int) {
 
     fun at(row: Int, column: Int): Cell? {
-        if (row >= this.rows || column >= this.columns) {
+        val validRow = (0 until rows).contains(row)
+        if (!validRow) {
             return null
         }
 
-        if (row < 0 || column < 0) {
+        val validColumn = (0 until columns).contains(column)
+        if (!validColumn) {
             return null
         }
 
@@ -21,7 +23,7 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     fun randomCell(): Cell {
-        return Cell(Random.nextInt(this.rows), Random.nextInt(this.columns))
+        return Cell(Random.nextInt(rows), Random.nextInt(columns))
     }
 
 
