@@ -1,5 +1,7 @@
 import org.junit.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class DistanceGridTest {
 
@@ -11,8 +13,8 @@ class DistanceGridTest {
         root.link(linkedCell)
         grid.distances = root.distances()
 
-        assertEquals("0", grid.cellContentsFor(root))
-        assertEquals("1", grid.cellContentsFor(linkedCell))
+        assertContains(grid.cellContentsFor(root), "0")
+        assertContains(grid.cellContentsFor(linkedCell), "1")
     }
 
     @Test
@@ -24,4 +26,14 @@ class DistanceGridTest {
         assertEquals("f", grid.distanceAsSingleChar(15))
     }
 
+    @Test
+    fun gridsUnderstandCellColourBasedOnDistance() {
+        val tree = BinaryTree()
+        val grid: DistanceGrid = tree.on(DistanceGrid(10, 10)) as DistanceGrid
+
+        val distances = grid.at(0, 0)!!.distances()
+        grid.distances = distances
+
+        assertNotNull(grid.backgroundColourFor(grid.randomCell()))
+    }
 }

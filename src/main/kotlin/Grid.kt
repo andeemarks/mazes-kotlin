@@ -1,3 +1,4 @@
+import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
 open class Grid(val rows: Int, val columns: Int) {
@@ -70,6 +71,10 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     open fun cellContentsFor(cell: Cell): String = " "
+
+    open fun backgroundColourFor(cell: Cell): TextStyle? {
+        return null
+    }
 
     init {
         this.configureCells()

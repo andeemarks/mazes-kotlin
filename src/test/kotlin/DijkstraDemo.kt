@@ -1,7 +1,6 @@
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import kotlin.test.Test
 import com.github.ajalt.mordant.rendering.TextColors.*
-import com.github.ajalt.mordant.rendering.TextStyles.*
 import com.github.ajalt.mordant.terminal.Terminal
 
 class DijkstraDemo {

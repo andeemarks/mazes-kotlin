@@ -67,4 +67,11 @@ class GridTest {
         assertEquals(middleCell?.east, grid.at(1, 2))
         assertEquals(middleCell?.west, grid.at(1, 0))
     }
+
+    @Test
+    fun normalGridsDoNotUnderstandColour() {
+        val grid = Grid(3, 5)
+
+        assertNull(grid.backgroundColourFor(grid.randomCell()))
+    }
 }
