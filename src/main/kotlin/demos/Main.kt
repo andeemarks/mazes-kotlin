@@ -10,5 +10,5 @@ fun main(args: Array<String>) {
     SidewinderDemo(TextColors.brightWhite on TextColors.brightMagenta).manualTest()
 
     println("demos.DijkstraDemo...")
-    DijkstraDemo(TextColors.black on TextColors.brightWhite).manualTest()
+    DijkstraDemo(TextColors.black on TextColors.gray).manualTest()
 }

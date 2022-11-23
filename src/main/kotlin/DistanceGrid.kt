@@ -26,6 +26,6 @@ class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
         val distance = distances.distanceFor(cell) ?: return TextColors.white
         val intensity = (_maximumDistance - distance).toFloat() / _maximumDistance
 
-        return TextColors.rgb(0, 0, intensity)
+        return TextColors.rgb(intensity, intensity, 0)
     }
 }

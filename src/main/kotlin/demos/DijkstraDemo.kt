@@ -17,13 +17,16 @@ class DijkstraDemo(private val style: TextStyle = TextColors.white) {
 
         grid.distances = distances
         val t = Terminal(AnsiLevel.TRUECOLOR)
+        t.println("All cell distances from (0, 0)...")
         t.println((style)(grid.toString()))
 
         grid.distances = distances.pathTo(grid.at(8, 6))
+        t.println("Shortest path from (0, 0) to (8, 6)...")
         t.println((style)(grid.toString()))
 
         val (newGoal, _) = distances.maxDistance()
         grid.distances = distances.pathTo(newGoal)
+        t.println("Longest path from (0, 0)...")
         t.println((style)(grid.toString()))
 
     }

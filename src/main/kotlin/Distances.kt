@@ -1,9 +1,7 @@
 class Distances(val root: Cell) {
     private var cellDistances: MutableMap<Cell, Int> = mutableMapOf(root to 0)
 
-    fun distanceFor(cell: Cell): Int? {
-        return cellDistances[cell]
-    }
+    fun distanceFor(cell: Cell): Int? = cellDistances[cell]
 
     fun set(cell: Cell, distance: Int) {
         cellDistances[cell] = distance

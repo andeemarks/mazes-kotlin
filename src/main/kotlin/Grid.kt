@@ -1,11 +1,6 @@
 import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
-private const val ROW_CORNER = "┼"
-private const val ROW_SIDE = "│"
-private const val ROW_BOTTOM = "─"
-private const val CELL_BOTTOM = "$ROW_BOTTOM$ROW_BOTTOM$ROW_BOTTOM"
-
 open class Grid(val rows: Int, val columns: Int) {
 
     fun at(row: Int, column: Int): Cell {
@@ -54,7 +49,7 @@ open class Grid(val rows: Int, val columns: Int) {
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {
-        var display = ROW_CORNER + (CELL_BOTTOM + ROW_CORNER).repeat(columns) + "\n"
+        var display = ""
 
         eachRow { row -> display += rowToString(row) }
 
@@ -62,15 +57,19 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     private fun rowToString(row: List<Cell>): String {
-        var rowTop = ROW_SIDE
-        var rowBottom = ROW_CORNER
+        var rowTop = ""
+        var rowBottom = ""
+        var rowMiddle = ""
         row.forEach { cell ->
-            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else ROW_SIDE
-            rowTop += " ${cellContentsFor(cell)} $cellEastBoundary"
-            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else CELL_BOTTOM
-            rowBottom += cellSouthBoundary + ROW_CORNER
+            val cellNorthBoundary = if (cell.isLinkedTo(cell.north)) "   " else "▔".repeat(3)
+            rowTop += "▛$cellNorthBoundary▜"
+            val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "▕"
+            val cellWestBoundary = if (cell.isLinkedTo(cell.west)) " " else "▏"
+            rowMiddle += "$cellWestBoundary ${cellContentsFor(cell)} $cellEastBoundary"
+            val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "▁".repeat(3)
+            rowBottom += "▙$cellSouthBoundary▟"
         }
-        return rowTop + "\n" + rowBottom + "\n"
+        return "$rowTop\n$rowMiddle\n$rowBottom\n"
     }
 
     open fun cellContentsFor(cell: Cell): String = " "
