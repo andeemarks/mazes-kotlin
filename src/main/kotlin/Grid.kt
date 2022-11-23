@@ -1,3 +1,4 @@
+import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
@@ -61,19 +62,20 @@ open class Grid(val rows: Int, val columns: Int) {
         var rowBottom = ""
         var rowMiddle = ""
         row.forEach { cell ->
+            val cellStyle = styleFor(cell) ?: TextColors.white.bg
             val cellNorthBoundary = if (cell.isLinkedTo(cell.north)) "   " else "▔".repeat(3)
-            rowTop += "▛$cellNorthBoundary▜"
+            rowTop += cellStyle("▛$cellNorthBoundary▜")
             val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "▕"
             val cellWestBoundary = if (cell.isLinkedTo(cell.west)) " " else "▏"
-            rowMiddle += "$cellWestBoundary ${cellContentsFor(cell)} $cellEastBoundary"
+            rowMiddle += cellStyle("$cellWestBoundary ${cellContentsFor(cell)} $cellEastBoundary")
             val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "▁".repeat(3)
-            rowBottom += "▙$cellSouthBoundary▟"
+            rowBottom += cellStyle("▙$cellSouthBoundary▟")
         }
         return "$rowTop\n$rowMiddle\n$rowBottom\n"
     }
 
     open fun cellContentsFor(cell: Cell): String = " "
-    open fun backgroundColourFor(cell: Cell): TextStyle? = null
+    open fun styleFor(cell: Cell): TextStyle? = null
 
     init {
         this.configureCells()

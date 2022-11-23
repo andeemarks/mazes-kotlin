@@ -73,6 +73,6 @@ class GridTest {
     fun normalGridsDoNotUnderstandColour() {
         val grid = Grid(3, 5)
 
-        assertNull(grid.backgroundColourFor(grid.randomCell()))
+        assertNull(grid.styleFor(grid.randomCell()))
     }
 }

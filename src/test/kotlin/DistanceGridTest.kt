@@ -34,6 +34,6 @@ class DistanceGridTest {
         val distances = grid.at(0, 0).distances()
         grid.distances = distances
 
-        assertNotNull(grid.backgroundColourFor(grid.randomCell()))
+        assertNotNull(grid.styleFor(grid.randomCell()))
     }
 }
