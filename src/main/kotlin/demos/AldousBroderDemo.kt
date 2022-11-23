@@ -1,7 +1,7 @@
 package demos
 
-import AldousBroder
 import DistanceGrid
+import algos.AldousBroder
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle

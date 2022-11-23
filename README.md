@@ -1,5 +1,5 @@
 # mazes-kotlin
-Kotlin implementation of the mazes code from "Mazes for Programmers" book (Jamis Buck)
+Kotlin implementations of the mazes code from "Mazes for Programmers" book (by Jamis Buck)
 
 ## A 10x10 grid with distances relative to (0,0)
 ```

@@ -10,8 +10,8 @@ fun main(_args: Array<String>) {
     SidewinderDemo(TextColors.brightWhite on TextColors.brightMagenta).manualTest()
 
     println("demos.DijkstraDemo...")
-    DijkstraDemo(TextColors.black on TextColors.gray).manualTest()
+    DijkstraDemo().manualTest()
 
     println("demos.AldousBroderDemo...")
-    AldousBroderDemo(TextColors.brightWhite on TextColors.blue).manualTest()
+    AldousBroderDemo().manualTest()
 }

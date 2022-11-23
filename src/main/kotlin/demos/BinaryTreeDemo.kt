@@ -1,7 +1,7 @@
 package demos
 
-import BinaryTree
 import Grid
+import algos.BinaryTree
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle

@@ -1,7 +1,7 @@
 package demos
 
 import Grid
-import Sidewinder
+import algos.Sidewinder
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle

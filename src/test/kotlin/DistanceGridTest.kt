@@ -1,3 +1,4 @@
+import algos.BinaryTree
 import org.junit.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals

@@ -1,3 +1,8 @@
+package algos
+
+import Cell
+import Grid
+
 class BinaryTree {
     fun on(grid: Grid): Grid {
         grid.eachCell(::initialiseCell)

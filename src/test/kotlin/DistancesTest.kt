@@ -1,3 +1,4 @@
+import algos.BinaryTree
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
@@ -42,6 +43,7 @@ class DistancesTest {
         assertIs<Distances>(path)
         assertEquals(rootCell, path.root)
     }
+
     @Test
     fun canFindMultiCellPath() {
         val tree = BinaryTree()

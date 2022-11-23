@@ -1,3 +1,7 @@
+package algos
+
+import Cell
+import Grid
 import kotlin.random.Random
 
 class Sidewinder {
