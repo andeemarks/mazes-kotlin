@@ -1,41 +1,19 @@
 # mazes-kotlin
+
 Kotlin implementations of the mazes code from "Mazes for Programmers" book (by Jamis Buck)
 
-## A 10x10 grid with distances relative to (0,0)
-```
-▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜
-▏ 0    1    2    3    4    5    6    7    8    9 ▕
-▙   ▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙   ▟
-▛   ▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛   ▜
-▏ 1 ▕▏ 2 ▕▏ b    a    9    8    7 ▕▏ c    b    a ▕
-▙   ▟▙   ▟▙   ▟▙   ▟▙▁▁▁▟▙   ▟▙   ▟▙   ▟▙▁▁▁▟▙   ▟
-▛   ▜▛   ▜▛   ▜▛   ▜▛▔▔▔▜▛   ▜▛   ▜▛   ▜▛▔▔▔▜▛   ▜
-▏ 2 ▕▏ 3 ▕▏ c ▕▏ b ▕▏ a    9 ▕▏ 8 ▕▏ d ▕▏ c    b ▕
-▙   ▟▙   ▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙   ▟▙   ▟
-▛   ▜▛   ▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛   ▜▛   ▜
-▏ 3 ▕▏ 4 ▕▏ d    c ▕▏ h    g    f    e ▕▏ d ▕▏ c ▕
-▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙   ▟▙   ▟▙   ▟
-▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛   ▜▛   ▜▛   ▜
-▏ 6    5 ▕▏ k    j    i    h    g ▕▏ f ▕▏ e ▕▏ d ▕
-▙   ▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙   ▟▙   ▟
-▛   ▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛   ▜▛   ▜
-▏ 7 ▕▏ m    l ▕▏ k    j    i    h ▕▏ g    f ▕▏ e ▕
-▙▁▁▁▟▙▁▁▁▟▙   ▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙   ▟
-▛▔▔▔▜▛▔▔▔▜▛   ▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛   ▜
-▏ o    n    m ▕▏ l ▕▏ k    j    i    h    g ▕▏ f ▕
-▙▁▁▁▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙   ▟
-▛▔▔▔▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛   ▜
-▏ p    o    n ▕▏ m    l ▕▏ k    j    i ▕▏ h    g ▕
-▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙   ▟
-▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛   ▜
-▏ q ▕▏ p    o    n    m ▕▏ l    k    j    i    h ▕
-▙▁▁▁▟▙   ▟▙▁▁▁▟▙   ▟▙   ▟▙   ▟▙   ▟▙   ▟▙▁▁▁▟▙   ▟
-▛▔▔▔▜▛   ▜▛▔▔▔▜▛   ▜▛   ▜▛   ▜▛   ▜▛   ▜▛▔▔▔▜▛   ▜
-▏ r    q ▕▏ p    o ▕▏ n ▕▏ m ▕▏ l ▕▏ k ▕▏ j    i ▕
-▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟▙▁▁▁▟
+# Background
 
-```
-## The above grid with an optimal Dijkstra path from (0, 0) to (8, 6)
+This code has been partially built using Test Driven Development, mainly around the domain and helper classes
+(e.g., `Cell`, `Grid`, etc). The various algorithms (e.g., `Sidewinder`, `Wilsons` in the `algos` package)
+have been rewritten from the original Ruby versions in the book.
+
+Where possible, the same variable and function names have been used (changed only for stylistic conventions),
+however I did start to look at using more idiomatic Kotlin in the latter parts of the Chapter 3 algorithms.
+
+# Examples
+
+## A 10x10 grid with an optimal Dijkstra path from (0, 0) to (8, 6)
 
 ```
 ▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜▛▔▔▔▜
