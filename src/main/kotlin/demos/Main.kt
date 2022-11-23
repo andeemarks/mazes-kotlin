@@ -2,7 +2,7 @@ package demos
 
 import com.github.ajalt.mordant.rendering.TextColors
 
-fun main(args: Array<String>) {
+fun main(_args: Array<String>) {
     println("demos.BinaryTreeDemo...")
     BinaryTreeDemo(TextColors.brightWhite on TextColors.red).manualTest()
 
@@ -11,4 +11,7 @@ fun main(args: Array<String>) {
 
     println("demos.DijkstraDemo...")
     DijkstraDemo(TextColors.black on TextColors.gray).manualTest()
+
+    println("demos.AldousBroderDemo...")
+    AldousBroderDemo(TextColors.brightWhite on TextColors.blue).manualTest()
 }

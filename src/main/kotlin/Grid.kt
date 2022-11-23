@@ -19,7 +19,7 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     fun randomCell(): Cell {
-        return Cell(Random.nextInt(rows), Random.nextInt(columns))
+        return at(Random.nextInt(rows), Random.nextInt(columns))
     }
 
 
@@ -69,7 +69,7 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
 
-    open fun cellContentsFor(cell: Cell): String = " "
+    open fun cellContentsFor(cell: Cell): String = "   "
     open fun styleFor(cell: Cell): TextStyle? = null
 
     init {

@@ -46,7 +46,7 @@ data class Cell(val row: Int, val column: Int) {
         val rowTop = cellStyle("▛$cellNorthBoundary▜")
         val cellEastBoundary = if (isLinkedTo(east)) " " else "▕"
         val cellWestBoundary = if (isLinkedTo(west)) " " else "▏"
-        val rowMiddle = cellStyle("$cellWestBoundary $contents $cellEastBoundary")
+        val rowMiddle = cellStyle("$cellWestBoundary$contents$cellEastBoundary")
         val cellSouthBoundary = if (isLinkedTo(south)) "   " else "▁".repeat(3)
         val rowBottom = cellStyle("▙$cellSouthBoundary▟")
 

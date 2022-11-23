@@ -21,9 +21,9 @@ class DistanceGridTest {
     fun displaysDistancesOver9AsLettersToKeepUniformWidth() {
         val grid = DistanceGrid(10, 10)
 
-        assertEquals("9", grid.distanceAsSingleChar(9))
-        assertEquals("a", grid.distanceAsSingleChar(10))
-        assertEquals("f", grid.distanceAsSingleChar(15))
+        assertEquals(" 9 ", grid.distanceAsSingleChar(9))
+        assertEquals(" a ", grid.distanceAsSingleChar(10))
+        assertEquals(" f ", grid.distanceAsSingleChar(15))
     }
 
     @Test

@@ -11,7 +11,19 @@ class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
             _maximumDistance = _distances!!.maxDistance().second
         }
 
-    fun distanceAsSingleChar(distance: Int): String = distance.toUInt().toString(35)
+    fun distanceAsSingleChar(distance: Int): String {
+        val formattedDistance = distance.toUInt().toString(35)
+
+        if (formattedDistance.length == 1) {
+            return " $formattedDistance "
+        }
+
+        if (formattedDistance.length == 2) {
+            return " $formattedDistance"
+        }
+
+        return formattedDistance
+    }
 
     override fun cellContentsFor(cell: Cell): String {
         require(distances != null) { "Distances not yet initialised" }
