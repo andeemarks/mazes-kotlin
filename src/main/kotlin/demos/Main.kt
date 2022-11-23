@@ -13,5 +13,8 @@ fun main(_args: Array<String>) {
     DijkstraDemo().manualTest()
 
     println("demos.AldousBroderDemo...")
-    AldousBroderDemo().manualTest()
+    AldousBroderDemo().run()
+
+    println("demos.WilsonsDemo...")
+    WilsonsDemo().run()
 }

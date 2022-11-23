@@ -1,30 +1,28 @@
 package demos
 
 import DistanceGrid
-import algos.AldousBroder
+import algos.Wilsons
 import com.github.ajalt.mordant.rendering.AnsiLevel
-import com.github.ajalt.mordant.rendering.TextColors
-import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 
-class AldousBroderDemo(private val style: TextStyle = TextColors.white) {
+class WilsonsDemo {
 
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
     fun run() {
         repeat(5) { i ->
-            t.println("Aldous Broder iteration $i...")
+            t.println("Wilson's iteration $i...")
             buildMaze()
         }
     }
 
-    fun buildMaze() {
-        val tree = AldousBroder()
+    private fun buildMaze() {
+        val tree = Wilsons()
         val distanceGrid = DistanceGrid(10, 10)
         val grid = tree.on(distanceGrid) as DistanceGrid
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println((style)(grid.toString()))
+        t.println(grid.toString())
     }
 }
