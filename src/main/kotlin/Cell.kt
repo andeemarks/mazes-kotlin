@@ -53,4 +53,14 @@ data class Cell(val row: Int, val column: Int) {
         return Triple(rowTop, rowMiddle, rowBottom)
     }
 
+    fun neighbours(): List<Cell> {
+        val neighbours = mutableListOf<Cell>()
+        north?.let { neighbours.add(it) }
+        south?.let { neighbours.add(it) }
+        east?.let { neighbours.add(it) }
+        west?.let { neighbours.add(it) }
+
+        return neighbours
+    }
+
 }

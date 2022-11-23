@@ -48,7 +48,7 @@ class CellTest {
     }
 
     @Test
-    fun linksAreBrokenBidiredctionally() {
+    fun linksAreBrokenBidirectionally() {
         val cell = Cell(3, 4)
         val otherCell = Cell(2, 1)
 
@@ -97,5 +97,20 @@ class CellTest {
         assertEquals(1, cell.distances().distanceFor(linkedCell))
         assertEquals(1, cell.distances().distanceFor(anotherLinkedCell))
         assertNull(cell.distances().distanceFor(nonLinkedCell))
+    }
+
+    @Test
+    fun newCellsHaveNoNeighbours() {
+        assertTrue(Cell(0, 0).neighbours().isEmpty())
+    }
+
+    @Test
+    fun cellsKnowTheirNeighbours() {
+        val cell = Cell(1, 1)
+        cell.north = Cell(0, 1)
+        cell.south = Cell(2, 1)
+        cell.west = Cell(1, 0)
+
+        assertEquals(3, cell.neighbours().size)
     }
 }
