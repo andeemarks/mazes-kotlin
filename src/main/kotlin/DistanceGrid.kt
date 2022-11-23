@@ -2,27 +2,31 @@ import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
 
 class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
-    private lateinit var _distances: Distances
+    private var _distances: Distances? = null
     private var _maximumDistance: Int = 0
-    var distances: Distances
+    var distances: Distances?
         get() = _distances
         set(value) {
             _distances = value
-            _maximumDistance = _distances.maxDistance().second
+            _maximumDistance = _distances!!.maxDistance().second
         }
 
     fun distanceAsSingleChar(distance: Int): String = distance.toUInt().toString(35)
 
     override fun cellContentsFor(cell: Cell): String {
-        distances.distanceFor(cell)?.let {
-            return distanceAsSingleChar(distances.distanceFor(cell)!!)
+        require(distances != null) { "Distances not yet initialised" }
+
+        distances!!.distanceFor(cell)?.let {
+            return distanceAsSingleChar(distances!!.distanceFor(cell)!!)
         }
 
         return super.cellContentsFor(cell)
     }
 
     override fun styleFor(cell: Cell): TextStyle {
-        val distance = distances.distanceFor(cell) ?: return TextColors.white
+        require(distances != null) { "Distances not yet initialised" }
+
+        val distance = distances!!.distanceFor(cell) ?: return TextColors.white
         val intensity = (_maximumDistance - distance).toFloat() / _maximumDistance
 
         return TextColors.rgb(intensity, intensity, 0).bg
