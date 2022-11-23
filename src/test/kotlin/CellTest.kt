@@ -94,8 +94,8 @@ class CellTest {
         cell.link(anotherLinkedCell)
 
         assertNotNull(cell.distances())
-        assertEquals(1, cell.distances().forCell(linkedCell))
-        assertEquals(1, cell.distances().forCell(anotherLinkedCell))
-        assertNull(cell.distances().forCell(nonLinkedCell))
+        assertEquals(1, cell.distances().distanceFor(linkedCell))
+        assertEquals(1, cell.distances().distanceFor(anotherLinkedCell))
+        assertNull(cell.distances().distanceFor(nonLinkedCell))
     }
 }

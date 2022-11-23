@@ -18,7 +18,7 @@ class DistancesTest {
         val rootCell = Cell(0, 0)
         val distances = Distances(rootCell)
 
-        assertEquals(0, distances.forCell(rootCell))
+        assertEquals(0, distances.distanceFor(rootCell))
     }
 
     @Test
@@ -29,7 +29,7 @@ class DistancesTest {
         val newCell = Cell(1, 1)
         distances.set(newCell, 3)
 
-        assertEquals(3, distances.forCell(newCell))
+        assertEquals(3, distances.distanceFor(newCell))
     }
 
     @Test
@@ -59,15 +59,14 @@ class DistancesTest {
 
     @Test
     fun canFindTheLongestDistanceFromTheGoalCell() {
-        val tree = BinaryTree()
-        val grid: DistanceGrid = tree.on(DistanceGrid(3, 4)) as DistanceGrid
-
-        val rootCell = grid.at(0, 0)
-        val distances = rootCell.distances()
+        val distances = Distances(Cell(0, 0))
+        distances.set(Cell(1, 1), 1)
+        distances.set(Cell(1, 5), 7)
+        distances.set(Cell(4, 0), 3)
 
         val (longestDistanceCell: Cell, longestDistance: Int) = distances.maxDistance()
 
-        assertTrue(longestDistance > 1)
-        assertEquals(longestDistance, distances.forCell(longestDistanceCell))
+        assertEquals(7, longestDistance)
+        assertEquals(Cell(1, 5), longestDistanceCell)
     }
 }

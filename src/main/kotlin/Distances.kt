@@ -1,7 +1,7 @@
 class Distances(val root: Cell) {
     private var cellDistances: MutableMap<Cell, Int> = mutableMapOf(root to 0)
 
-    fun forCell(cell: Cell): Int? {
+    fun distanceFor(cell: Cell): Int? {
         return cellDistances[cell]
     }
 
@@ -12,12 +12,12 @@ class Distances(val root: Cell) {
     fun pathTo(goal: Cell): Distances {
         var current = goal
         val breadcrumbs = Distances(root)
-        breadcrumbs.set(goal, forCell(current)!!)
+        breadcrumbs.set(goal, distanceFor(current)!!)
 
         do {
             current.links.forEach { linkedCell ->
-                if (forCell(linkedCell)!! < forCell(current)!!) {
-                    breadcrumbs.set(linkedCell, forCell(linkedCell)!!)
+                if (distanceFor(linkedCell)!! < distanceFor(current)!!) {
+                    breadcrumbs.set(linkedCell, distanceFor(linkedCell)!!)
                     current = linkedCell
                 }
             }
@@ -28,17 +28,9 @@ class Distances(val root: Cell) {
     fun length(): Int = cellDistances.size
 
     fun maxDistance(): Pair<Cell, Int> {
-        var maxDistance = 0
-        var maxCell = root
+        val maxDistance = cellDistances.entries.maxByOrNull { it.value }!!
 
-        cellDistances.forEach { (cell, distance) ->
-            if (distance > maxDistance) {
-                maxCell = cell
-                maxDistance = distance
-            }
-        }
-
-        return Pair(maxCell, maxDistance)
+        return Pair(maxDistance.key, maxDistance.value)
     }
 
 }

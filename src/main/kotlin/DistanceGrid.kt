@@ -14,16 +14,16 @@ class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
     fun distanceAsSingleChar(distance: Int): String = distance.toUInt().toString(35)
 
     override fun cellContentsFor(cell: Cell): String {
-        distances.forCell(cell)?.let {
+        distances.distanceFor(cell)?.let {
             val style = backgroundColourFor(cell)
-            return style(distanceAsSingleChar(distances.forCell(cell)!!))
+            return style(distanceAsSingleChar(distances.distanceFor(cell)!!))
         }
 
         return super.cellContentsFor(cell)
     }
 
     override fun backgroundColourFor(cell: Cell): TextStyle {
-        val distance = distances.forCell(cell) ?: return TextColors.white
+        val distance = distances.distanceFor(cell) ?: return TextColors.white
         val intensity = (_maximumDistance - distance).toFloat() / _maximumDistance
 
         return TextColors.rgb(0, 0, intensity)

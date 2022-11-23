@@ -26,8 +26,8 @@ data class Cell(val row: Int, val column: Int) {
 
             frontier.forEach { cell ->
                 cell.links.forEach { linkedCell ->
-                    if (distances.forCell(linkedCell) == null) {
-                        distances.set(linkedCell, distances.forCell(cell)!! + 1)
+                    if (distances.distanceFor(linkedCell) == null) {
+                        distances.set(linkedCell, distances.distanceFor(cell)!! + 1)
                         newFrontier.add(linkedCell)
                     }
                 }
