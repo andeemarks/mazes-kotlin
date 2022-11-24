@@ -107,6 +107,6 @@ terminal.
 
 `./gradlew test`
 
-[//]: # ()
+# Running Demos
 
-[//]: # (# Running Demos)
+`./gradlew run`

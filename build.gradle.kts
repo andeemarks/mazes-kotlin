@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     kotlin("jvm")
+    application
 }
 
 repositories {
@@ -21,4 +22,8 @@ tasks.withType<Test> {
         exceptionFormat = TestExceptionFormat.FULL
         events("passed", "failed", "skipped")
     }
+}
+
+application {
+    mainClass.set("demos.MainKt")
 }
