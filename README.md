@@ -98,7 +98,7 @@ terminal.
 
 ## An image of a 10x10 grid showing cell visitation using the Wilson's algorithm.
 
-[wilsons-10x10.png](img/wilsons-10x10.png)
+![wilsons-10x10.png](img/wilsons-10x10.png)
 
 # Running Tests
 
