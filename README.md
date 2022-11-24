@@ -103,10 +103,10 @@ terminal.
 
 ![wilsons maze](img/wilsons-10x10.png)
 
-# Running Tests
+# Running Tests (in the [test folder](https://github.com/andeemarks/mazes-kotlin/tree/a28f03951e9fc5ab52a4ce48763f0163456e0cca/src/test/kotlin))
 
 `./gradlew test`
 
-# Running Demos
+# Running Demos (see [Main.kt](https://github.com/andeemarks/mazes-kotlin/blob/a28f03951e9fc5ab52a4ce48763f0163456e0cca/src/main/kotlin/demos/Main.kt))
 
 `./gradlew run`
