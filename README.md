@@ -19,7 +19,8 @@ The code examples from Jamis Buck's book introduced
 the [Ruby ChunkPNG library](https://github.com/wvanbergen/chunky_png)
 in Chapter 2 to render more pleasant looking, colourful mazes. A lazy GitHub search found 0 such libraries with
 Kotlin/Java
-bindings, so - necessity being the mother of invention - I turned back to a combination of Unicode characters and the
+bindings, so - necessity being the mother of invention - I turned back to a combination of specific
+[Unicode characters](https://unicode-table.com/en/blocks/block-elements/) and the
 tasty [Mordant](https://github.com/ajalt/mordant) library to create nicer looking mazes, but without leaving the
 terminal.
 
