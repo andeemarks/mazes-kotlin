@@ -2,6 +2,8 @@
 
 Kotlin implementations of the mazes code from "Mazes for Programmers" book (by Jamis Buck)
 
+![book cover](img/book-cover.jpeg)
+
 # Background
 
 This code has been partially built using Test Driven Development, mainly around the domain and helper classes
@@ -98,7 +100,7 @@ terminal.
 
 ## An image of a 10x10 grid showing cell visitation using the Wilson's algorithm.
 
-![wilsons-10x10.png](img/wilsons-10x10.png)
+![wilsons maze](img/wilsons-10x10.png)
 
 # Running Tests
 
