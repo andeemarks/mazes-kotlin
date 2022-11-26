@@ -1,4 +1,5 @@
 import algos.BinaryTree
+import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.mordant.rendering.TextColors
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -33,43 +34,51 @@ class DistanceGridTest {
 
     @Test
     fun gridsRejectUnsupportedStyles() {
-        assertThrows(IllegalArgumentException::class.java) { DistanceGrid(10, 10, TextColors.yellow) }
         assertThrows(IllegalArgumentException::class.java) { DistanceGrid(10, 10, TextColors.brightBlue) }
         assertThrows(IllegalArgumentException::class.java) { DistanceGrid(10, 10, TextColors.gray) }
     }
 
     @Test
     fun gridsFormatCellBGColourBasedOnStyle() {
-        val tree = BinaryTree()
+        var rgb = cellBGColourForStyle(TextColors.red)
 
-        var grid = createGridWithStyle(tree, TextColors.red)
-        var style = grid.styleFor(grid.randomCell())
+        assertTrue(rgb.r > 0)
+        assertEquals(0.0f, rgb.g)
+        assertEquals(0.0f, rgb.b)
 
-        assertTrue(style.bgColor!!.toSRGB().r > 0)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().g)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().b)
+        rgb = cellBGColourForStyle(TextColors.green)
 
-        grid = createGridWithStyle(tree, TextColors.green)
-        style = grid.styleFor(grid.randomCell())
+        assertTrue(rgb.g > 0)
+        assertEquals(0.0f, rgb.r)
+        assertEquals(0.0f, rgb.b)
 
-        assertTrue(style.bgColor!!.toSRGB().g > 0)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().r)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().b)
+        rgb = cellBGColourForStyle(TextColors.blue)
 
-        grid = createGridWithStyle(tree, TextColors.blue)
-        style = grid.styleFor(grid.randomCell())
+        assertTrue(rgb.b > 0)
+        assertEquals(0.0f, rgb.r)
+        assertEquals(0.0f, rgb.g)
 
-        assertTrue(style.bgColor!!.toSRGB().b > 0)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().r)
-        assertEquals(0.0f, style.bgColor!!.toSRGB().g)
+        rgb = cellBGColourForStyle(TextColors.magenta)
+
+        assertTrue(rgb.b > 0)
+        assertTrue(rgb.r > 0)
+        assertEquals(0.0f, rgb.g)
+        assertEquals(rgb.r, rgb.b)
+
+        rgb = cellBGColourForStyle(TextColors.yellow)
+
+        assertTrue(rgb.g > 0)
+        assertTrue(rgb.r > 0)
+        assertEquals(0.0f, rgb.b)
+        assertEquals(rgb.r, rgb.g)
     }
 
-    private fun createGridWithStyle(tree: BinaryTree, style: TextColors): DistanceGrid {
-        val grid: DistanceGrid = tree.on(DistanceGrid(10, 10, style)) as DistanceGrid
+    private fun cellBGColourForStyle(style: TextColors): RGB {
+        val grid: DistanceGrid = BinaryTree().on(DistanceGrid(10, 10, style)) as DistanceGrid
 
         val distances = grid.at(0, 0).distances()
         grid.distances = distances
 
-        return grid
+        return grid.styleFor(grid.randomCell()).bgColor!!.toSRGB()
     }
 }

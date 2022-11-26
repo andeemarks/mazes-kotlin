@@ -14,7 +14,7 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) {
     fun run() {
         t.println("Hunt and Kill...")
         val tree = HuntAndKill()
-        val grid: DistanceGrid = tree.on(DistanceGrid(20, 20, TextColors.blue)) as DistanceGrid
+        val grid: DistanceGrid = tree.on(DistanceGrid(20, 20, TextColors.magenta)) as DistanceGrid
 
         val start = grid.at(0, 0)
         val distances = start.distances()

@@ -6,7 +6,15 @@ class DistanceGrid : Grid {
     private val cellColour: TextColors
 
     constructor(rows: Int, columns: Int, cellColour: TextColors = green) : super(rows, columns) {
-        require(cellColour in listOf(red, blue, green)) { "Color must be one of red, green or blue" }
+        require(
+            cellColour in listOf(
+                red,
+                blue,
+                green,
+                magenta,
+                yellow
+            )
+        ) { "Color must be one of red, green, blue, yellow or magenta" }
 
         this.cellColour = cellColour
     }
@@ -54,6 +62,8 @@ class DistanceGrid : Grid {
             red -> TextColors.rgb(intensity, 0, 0).bg
             green -> TextColors.rgb(0, intensity, 0).bg
             blue -> TextColors.rgb(0, 0, intensity).bg
+            magenta -> TextColors.rgb(intensity, 0, intensity).bg
+            yellow -> TextColors.rgb(intensity, intensity, 0).bg
             else -> throw IllegalArgumentException()
         }
     }
