@@ -18,7 +18,7 @@ class AldousBroderDemo(private val style: TextStyle = TextColors.white) {
         }
     }
 
-    fun buildMaze() {
+    private fun buildMaze() {
         val tree = AldousBroder()
         val distanceGrid = DistanceGrid(10, 10)
         val grid = tree.on(distanceGrid) as DistanceGrid

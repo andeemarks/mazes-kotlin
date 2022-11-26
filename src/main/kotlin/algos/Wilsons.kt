@@ -13,7 +13,7 @@ class Wilsons {
         unvisitedCells.remove(firstCell)
 
         while (unvisitedCells.isNotEmpty()) {
-            var path = randomWalk(unvisitedCells)
+            val path = randomWalk(unvisitedCells)
 
             unvisitedCells = carvePassages(path, unvisitedCells)
         }
@@ -22,7 +22,7 @@ class Wilsons {
 
     private fun randomWalk(unvisitedCells: MutableList<Cell>): MutableList<Cell> {
         var cell = unvisitedCells.random()
-        var path = mutableListOf<Cell>(cell)
+        var path = mutableListOf(cell)
 
         while (unvisitedCells.contains(cell)) {
             cell = cell.neighbours().random()
