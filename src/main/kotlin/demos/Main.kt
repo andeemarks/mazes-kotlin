@@ -17,4 +17,7 @@ fun main(_args: Array<String>) {
 
     println("demos.WilsonsDemo...")
     WilsonsDemo().run()
+
+    println("demos.HuntAndKillDemo...")
+    HuntAndKillDemo().run()
 }
