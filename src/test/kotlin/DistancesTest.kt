@@ -1,4 +1,5 @@
 import algos.BinaryTree
+import com.github.ajalt.mordant.rendering.TextColors
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
@@ -47,7 +48,7 @@ class DistancesTest {
     @Test
     fun canFindMultiCellPath() {
         val tree = BinaryTree()
-        val grid: DistanceGrid = tree.on(DistanceGrid(3, 4)) as DistanceGrid
+        val grid: DistanceGrid = tree.on(DistanceGrid(3, 4, TextColors.red)) as DistanceGrid
 
         val rootCell = grid.at(0, 0)
         val goalCell = grid.at(2, 3)

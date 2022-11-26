@@ -10,7 +10,7 @@ import com.github.ajalt.mordant.terminal.Terminal
 class DijkstraDemo(private val style: TextStyle = TextColors.white) {
     fun manualTest() {
         val tree = BinaryTree()
-        val grid: DistanceGrid = tree.on(DistanceGrid(10, 10)) as DistanceGrid
+        val grid: DistanceGrid = tree.on(DistanceGrid(10, 10, TextColors.red)) as DistanceGrid
 
         val start = grid.at(0, 0)
         val distances = start.distances()

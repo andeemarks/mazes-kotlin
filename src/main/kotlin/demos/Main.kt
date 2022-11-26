@@ -4,16 +4,16 @@ import com.github.ajalt.mordant.rendering.TextColors
 
 fun main(_args: Array<String>) {
     println("demos.BinaryTreeDemo...")
-    BinaryTreeDemo(TextColors.brightWhite on TextColors.red).manualTest()
+    BinaryTreeDemo(TextColors.brightWhite).manualTest()
 
     println("demos.SidewinderDemo...")
-    SidewinderDemo(TextColors.brightWhite on TextColors.brightMagenta).manualTest()
+    SidewinderDemo(TextColors.brightWhite).manualTest()
 
     println("demos.DijkstraDemo...")
-    DijkstraDemo().manualTest()
+    DijkstraDemo(TextColors.brightWhite).manualTest()
 
     println("demos.AldousBroderDemo...")
-    AldousBroderDemo().run()
+    AldousBroderDemo(TextColors.brightWhite).run()
 
     println("demos.WilsonsDemo...")
     WilsonsDemo().run()
