@@ -10,25 +10,30 @@ class HuntAndKill {
         while (currentCell != null) {
             val unvisitedNeighbours = currentCell.neighbours().filter { neighbour -> neighbour.links.isEmpty() }
 
-            if (unvisitedNeighbours.isNotEmpty()) {
+            currentCell = if (unvisitedNeighbours.isNotEmpty()) {
                 val neighbour = unvisitedNeighbours.random()
                 currentCell.link(neighbour)
-                currentCell = neighbour
+                neighbour
             } else {
-                currentCell = null
-
-                grid.eachCell { cell ->
-                    val visitedNeighbours = cell.neighbours().filter { neighbour -> neighbour.links.isNotEmpty() }
-                    if (cell.links.isEmpty() && visitedNeighbours.isNotEmpty()) {
-                        currentCell = cell
-                        val neighbour = visitedNeighbours.random()
-                        currentCell!!.link(neighbour)
-                    }
-                }
+                hunt(grid)
             }
         }
 
         return grid
+    }
+
+    private fun hunt(grid: Grid): Cell? {
+        var targetCell: Cell? = null
+
+        grid.eachCell { cell ->
+            val visitedNeighbours = cell.neighbours().filter { neighbour -> neighbour.links.isNotEmpty() }
+            if (cell.links.isEmpty() && visitedNeighbours.isNotEmpty()) {
+                targetCell = cell
+                val neighbour = visitedNeighbours.random()
+                targetCell!!.link(neighbour)
+            }
+        }
+        return targetCell
     }
 
 }
