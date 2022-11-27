@@ -1,8 +1,6 @@
+import algos.BinaryTree
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
+import kotlin.test.*
 
 class GridTest {
 
@@ -74,5 +72,23 @@ class GridTest {
         val grid = Grid(3, 5)
 
         assertNull(grid.styleFor(grid.randomCell()))
+    }
+
+    @Test
+    fun newGridsHaveNoDeadEndCells() {
+        val grid = Grid(3, 5)
+        val deadEndCells = grid.deadEndCells()
+
+        assertTrue(deadEndCells.isEmpty())
+    }
+
+    @Test
+    fun populatedGridsHaveDeadEndCells() {
+        var grid = Grid(3, 5)
+        grid = BinaryTree().on(grid)
+
+        val deadEndCells = grid.deadEndCells()
+
+        assertTrue(deadEndCells.isNotEmpty())
     }
 }

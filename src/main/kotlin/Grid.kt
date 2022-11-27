@@ -72,6 +72,13 @@ open class Grid(val rows: Int, val columns: Int) {
     open fun cellContentsFor(cell: Cell): String = "   "
     open fun styleFor(cell: Cell): TextStyle? = null
 
+    fun deadEndCells(): List<Cell> {
+        val deadEndCells = mutableListOf<Cell>()
+        eachCell { cell -> if (cell.links.size > 0) deadEndCells.add(cell) }
+
+        return deadEndCells
+    }
+
     init {
         this.configureCells()
     }
