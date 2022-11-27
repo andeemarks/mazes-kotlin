@@ -74,7 +74,7 @@ open class Grid(val rows: Int, val columns: Int) {
 
     fun deadEndCells(): List<Cell> {
         val deadEndCells = mutableListOf<Cell>()
-        eachCell { cell -> if (cell.links.size > 0) deadEndCells.add(cell) }
+        eachCell { cell -> if (cell.links.size == 1) deadEndCells.add(cell) }
 
         return deadEndCells
     }

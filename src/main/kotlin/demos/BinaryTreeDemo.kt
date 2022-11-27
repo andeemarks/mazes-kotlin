@@ -9,12 +9,14 @@ import com.github.ajalt.mordant.terminal.Terminal
 
 class BinaryTreeDemo(private val style: TextStyle = TextColors.white) {
 
-    fun manualTest() {
+    fun run(): Grid {
         val tree = BinaryTree()
         val grid = tree.on(Grid(10, 10))
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
 
         t.println((style)(grid.toString()))
+
+        return grid
     }
 }

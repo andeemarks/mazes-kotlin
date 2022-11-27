@@ -1,6 +1,7 @@
 package demos
 
 import DistanceGrid
+import Grid
 import algos.BinaryTree
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -8,7 +9,7 @@ import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 
 class DijkstraDemo(private val style: TextStyle = TextColors.white) {
-    fun manualTest() {
+    fun run(): Grid {
         val tree = BinaryTree()
         val grid: DistanceGrid = tree.on(DistanceGrid(10, 10, TextColors.red)) as DistanceGrid
 
@@ -29,5 +30,6 @@ class DijkstraDemo(private val style: TextStyle = TextColors.white) {
         t.println("Longest path from (0, 0)...")
         t.println((style)(grid.toString()))
 
+        return grid
     }
 }

@@ -1,6 +1,7 @@
 package demos
 
 import DistanceGrid
+import Grid
 import algos.HuntAndKill
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -11,7 +12,7 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) {
 
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
-    fun run() {
+    fun run(): Grid {
         t.println("Hunt and Kill...")
         val tree = HuntAndKill()
         val grid: DistanceGrid = tree.on(DistanceGrid(20, 20, TextColors.magenta)) as DistanceGrid
@@ -21,6 +22,8 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) {
 
         grid.distances = distances
         t.println((style)(grid.toString()))
+
+        return grid
     }
 
 }

@@ -83,12 +83,13 @@ class GridTest {
     }
 
     @Test
-    fun populatedGridsHaveDeadEndCells() {
+    fun populatedGridsHaveSomeDeadEndCells() {
         var grid = Grid(3, 5)
         grid = BinaryTree().on(grid)
 
         val deadEndCells = grid.deadEndCells()
 
         assertTrue(deadEndCells.isNotEmpty())
+        assertTrue(deadEndCells.size < 3 * 5)
     }
 }
