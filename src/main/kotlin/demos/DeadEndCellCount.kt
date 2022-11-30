@@ -17,18 +17,18 @@ class DeadEndCellCount : Demoable {
         val size = 20
 
         repeat(tries) {
-            var deadEndCells = BinaryTree().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "binaryTree")
+            runWith(size, deadEndCellCount)
+            var deadEndCells: Int
             deadEndCells = Sidewinder().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "sideWinder")
+            record(deadEndCellCount, deadEndCells, Sidewinder::class.simpleName!!)
             deadEndCells = AldousBroder().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "aldousBroder")
+            record(deadEndCellCount, deadEndCells, AldousBroder::class.simpleName!!)
             deadEndCells = Wilsons().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "wilsons")
+            record(deadEndCellCount, deadEndCells, Wilsons::class.simpleName!!)
             deadEndCells = HuntAndKill().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "huntAndKill")
+            record(deadEndCellCount, deadEndCells, HuntAndKill::class.simpleName!!)
             deadEndCells = RecursiveBacktracker().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, "recursiveBacktracker")
+            record(deadEndCellCount, deadEndCells, RecursiveBacktracker::class.simpleName!!)
         }
 
         val averages = deadEndCellCount.map { (algo, count) -> Pair(algo, count / tries) }.toMap()
@@ -49,6 +49,16 @@ class DeadEndCellCount : Demoable {
                 }
             }
         )
+    }
+
+    private fun runWith(
+        size: Int,
+        deadEndCellCount: MutableMap<String, Int>
+    ): Int {
+        val deadEndCells = BinaryTree().on(Grid(size, size)).deadEndCells().size
+        record(deadEndCellCount, deadEndCells, BinaryTree::class.simpleName!!)
+
+        return deadEndCells
     }
 
     private fun deadEndPercentage(average: Int, size: Int) = average / (size * size.toFloat()) * 100
