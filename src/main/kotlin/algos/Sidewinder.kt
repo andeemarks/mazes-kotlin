@@ -4,8 +4,8 @@ import Cell
 import Grid
 import kotlin.random.Random
 
-class Sidewinder {
-    fun on(grid: Grid): Grid {
+class Sidewinder : Algo {
+    override fun on(grid: Grid): Grid {
         grid.eachRow(::initialiseRow)
 
         return grid

@@ -3,8 +3,8 @@ package algos
 import Cell
 import Grid
 
-class HuntAndKill {
-    fun on(grid: Grid): Grid {
+class HuntAndKill : Algo {
+    override fun on(grid: Grid): Grid {
         var currentCell: Cell? = grid.randomCell()
 
         while (currentCell != null) {

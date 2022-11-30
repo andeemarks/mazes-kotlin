@@ -3,8 +3,8 @@ package algos
 import Cell
 import Grid
 
-class Wilsons {
-    fun on(grid: Grid): Grid {
+class Wilsons : Algo {
+    override fun on(grid: Grid): Grid {
         var unvisitedCells = mutableListOf<Cell>()
 
         grid.eachCell { cell -> unvisitedCells.add(cell) }

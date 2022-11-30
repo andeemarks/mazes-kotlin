@@ -2,8 +2,8 @@ package algos
 
 import Grid
 
-class AldousBroder {
-    fun on(grid: Grid): Grid {
+class AldousBroder : Algo {
+    override fun on(grid: Grid): Grid {
         var cell = grid.randomCell()
         var unvisitedCellCount = grid.size - 1
 

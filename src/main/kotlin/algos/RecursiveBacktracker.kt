@@ -3,8 +3,8 @@ package algos
 import Cell
 import Grid
 
-class RecursiveBacktracker {
-    fun on(grid: Grid): Grid {
+class RecursiveBacktracker : Algo {
+    override fun on(grid: Grid): Grid {
         val stack = Stack()
         val startCell = grid.randomCell()
         stack.push(startCell)
