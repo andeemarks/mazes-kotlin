@@ -5,24 +5,33 @@ import Grid
 
 class RecursiveBacktracker {
     fun on(grid: Grid): Grid {
-        val stack = ArrayDeque<Cell>()
+        val stack = Stack()
         val startCell = grid.randomCell()
-        stack.addLast(startCell)
+        stack.push(startCell)
 
         while (stack.isNotEmpty()) {
             val currentCell = stack.last()
             val neighbours = currentCell.neighbours().filter { it.links.isEmpty() }
 
             if (neighbours.isEmpty()) {
-                stack.removeLast()
+                stack.pop()
             } else {
                 val neighbour = neighbours.random()
                 currentCell.link(neighbour)
-                stack.addLast(neighbour)
+                stack.push(neighbour)
             }
         }
 
         return grid
     }
 
+}
+
+private class Stack {
+    private val stack = ArrayDeque<Cell>()
+
+    fun push(cell: Cell) = stack.addLast(cell)
+    fun pop(): Cell = stack.removeLast()
+    fun last(): Cell = stack.last()
+    fun isNotEmpty(): Boolean = stack.isNotEmpty()
 }
