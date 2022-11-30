@@ -11,28 +11,29 @@ import com.github.ajalt.mordant.terminal.Terminal
 
 @Suppress("SameParameterValue")
 class DeadEndCellCount : Demoable {
+    private val counts = mutableMapOf<String, Int>()
+
     override fun run() {
-        val deadEndCellCount = mutableMapOf<String, Int>()
         val tries = 100
-        val size = 20
+        val gridSize = 20
 
         repeat(tries) {
-            runWith(size, deadEndCellCount)
-            var deadEndCells: Int
-            deadEndCells = Sidewinder().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, Sidewinder::class.simpleName!!)
-            deadEndCells = AldousBroder().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, AldousBroder::class.simpleName!!)
-            deadEndCells = Wilsons().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, Wilsons::class.simpleName!!)
-            deadEndCells = HuntAndKill().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, HuntAndKill::class.simpleName!!)
-            deadEndCells = RecursiveBacktracker().on(Grid(size, size)).deadEndCells().size
-            record(deadEndCellCount, deadEndCells, RecursiveBacktracker::class.simpleName!!)
+            recordCountsFor(BinaryTree(), gridSize)
+            recordCountsFor(Sidewinder(), gridSize)
+            recordCountsFor(AldousBroder(), gridSize)
+            recordCountsFor(Wilsons(), gridSize)
+            recordCountsFor(HuntAndKill(), gridSize)
+            recordCountsFor(RecursiveBacktracker(), gridSize)
         }
 
-        val averages = deadEndCellCount.map { (algo, count) -> Pair(algo, count / tries) }.toMap()
+        val averages = countAverages(tries)
 
+        showCountAverages(averages, gridSize)
+    }
+
+    private fun countAverages(tries: Int) = counts.map { (algo, count) -> Pair(algo, count / tries) }.toMap()
+
+    private fun showCountAverages(averages: Map<String, Int>, size: Int) {
         val t = Terminal(AnsiLevel.TRUECOLOR)
         t.println(
             table {
@@ -51,21 +52,12 @@ class DeadEndCellCount : Demoable {
         )
     }
 
-    private fun runWith(
-        size: Int,
-        deadEndCellCount: MutableMap<String, Int>
-    ): Int {
-        val deadEndCells = BinaryTree().on(Grid(size, size)).deadEndCells().size
-        record(deadEndCellCount, deadEndCells, BinaryTree::class.simpleName!!)
-
-        return deadEndCells
+    private fun recordCountsFor(algo: Algo, gridSize: Int) {
+        val deadEndCells = algo.on(Grid(gridSize, gridSize)).deadEndCells().size
+        val algoName = algo::class.simpleName!!
+        counts[algoName] = counts[algoName]?.plus(deadEndCells) ?: deadEndCells
     }
 
     private fun deadEndPercentage(average: Int, size: Int) = average / (size * size.toFloat()) * 100
 
-    private fun record(
-        deadEndCellCount: MutableMap<String, Int>, deadEndCells: Int, algoName: String
-    ) {
-        deadEndCellCount[algoName] = deadEndCellCount[algoName]?.plus(deadEndCells) ?: deadEndCells
-    }
 }
