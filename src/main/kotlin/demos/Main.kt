@@ -21,6 +21,9 @@ fun main(_args: Array<String>) {
     println("demos.HuntAndKillDemo...")
     HuntAndKillDemo().run()
 
+    println("demos.RecursiveBacktrackerDemo...")
+    RecursiveBacktrackerDemo().run()
+
     println("demos.DeadEndCellCount...")
     DeadEndCellCount().run()
 }

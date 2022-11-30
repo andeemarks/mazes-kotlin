@@ -26,6 +26,8 @@ class DeadEndCellCount {
             record(deadEndCellCount, deadEndCells, "wilsons")
             deadEndCells = HuntAndKill().on(Grid(size, size)).deadEndCells().size
             record(deadEndCellCount, deadEndCells, "huntAndKill")
+            deadEndCells = RecursiveBacktracker().on(Grid(size, size)).deadEndCells().size
+            record(deadEndCellCount, deadEndCells, "recursiveBacktracker")
         }
 
         val averages = deadEndCellCount.map { (algo, count) -> Pair(algo, count / tries) }.toMap()
