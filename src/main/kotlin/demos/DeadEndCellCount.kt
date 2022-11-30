@@ -9,8 +9,9 @@ import com.github.ajalt.mordant.table.Borders
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 
-class DeadEndCellCount {
-    fun run() {
+@Suppress("SameParameterValue")
+class DeadEndCellCount : Demoable {
+    override fun run() {
         val deadEndCellCount = mutableMapOf<String, Int>()
         val tries = 100
         val size = 20

@@ -1,27 +1,23 @@
 package demos
 
 import DistanceGrid
-import Grid
 import algos.Wilsons
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.terminal.Terminal
 
-class WilsonsDemo {
+class WilsonsDemo : Demoable {
 
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
-    fun run(): Grid {
-        var grid: Grid? = null
+    override fun run() {
         repeat(5) { i ->
             t.println("Wilson's iteration $i...")
-            grid = buildMaze()
+            buildMaze()
         }
-
-        return grid!!
     }
 
-    private fun buildMaze(): Grid {
+    private fun buildMaze() {
         val tree = Wilsons()
         val distanceGrid = DistanceGrid(10, 10, TextColors.green)
         val grid = tree.on(distanceGrid) as DistanceGrid
@@ -29,7 +25,5 @@ class WilsonsDemo {
         grid.distances = middleCell.distances()
 
         t.println(grid.toString())
-
-        return grid
     }
 }

@@ -1,18 +1,17 @@
 package demos
 
 import DistanceGrid
-import Grid
 import algos.RecursiveBacktracker
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 
-class RecursiveBacktrackerDemo(private val style: TextStyle = TextColors.brightWhite) {
+class RecursiveBacktrackerDemo(private val style: TextStyle = TextColors.brightWhite) : Demoable {
 
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
-    fun run(): Grid {
+    override fun run() {
         t.println("Recursive Backtracker...")
         val tree = RecursiveBacktracker()
         val grid: DistanceGrid = tree.on(DistanceGrid(20, 20, TextColors.magenta)) as DistanceGrid
@@ -22,8 +21,6 @@ class RecursiveBacktrackerDemo(private val style: TextStyle = TextColors.brightW
 
         grid.distances = distances
         t.println((style)(grid.toString()))
-
-        return grid
     }
 
 }
