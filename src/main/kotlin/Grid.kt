@@ -18,7 +18,7 @@ open class Grid(val rows: Int, val columns: Int) {
         }
     }
 
-    fun randomCell(): Cell {
+    open fun randomCell(): Cell {
         return at(Random.nextInt(rows), Random.nextInt(columns))
     }
 
@@ -44,7 +44,7 @@ open class Grid(val rows: Int, val columns: Int) {
         return cell
     }
 
-    val size: Int = this.rows * this.columns
+    open val size: Int = this.rows * this.columns
     val cells: MutableList<MutableList<Cell>> =
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
