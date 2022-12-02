@@ -5,8 +5,11 @@ import Grid
 
 class RecursiveBacktracker : Algo {
     override fun on(grid: Grid): Grid {
+        return on(grid, grid.randomCell())
+    }
+
+    fun on(grid: Grid, startCell: Cell): Grid {
         val stack = Stack()
-        val startCell = grid.randomCell()
         stack.push(startCell)
 
         while (stack.isNotEmpty()) {

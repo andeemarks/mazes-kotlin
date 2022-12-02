@@ -10,7 +10,8 @@ fun main(_args: Array<String>) {
         WilsonsDemo(),
         HuntAndKillDemo(),
         RecursiveBacktrackerDemo(),
-        DeadEndCellCount()
+        DeadEndCellCount(),
+        KillingCellsDemo()
     )
 
     demos.forEach { demo ->
