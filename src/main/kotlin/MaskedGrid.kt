@@ -1,13 +1,15 @@
 class MaskedGrid(val mask: Mask) : Grid(mask.rows, mask.columns) {
-    init {
-        cells = MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
-        for (row in 0 until mask.rows) {
-            for (column in 0 until mask.columns) {
-                cells[row][column] = initCell(row, column)
-            }
+    override val size: Int = mask.count()
 
-        }
+    init {
+        cells = MutableList(rows) { row -> MutableList(columns) { column -> initCell(row, column) } }
         configureCells()
+    }
+
+    override fun randomCell(): Cell {
+        val (row, column) = mask.randomBit()
+
+        return initCell(row, column)
     }
 
     fun initCell(row: Int, column: Int): Cell {
@@ -17,13 +19,6 @@ class MaskedGrid(val mask: Mask) : Grid(mask.rows, mask.columns) {
         } else {
             NullCell()
         }
-    }
-
-    override val size: Int = mask.count()
-    override fun randomCell(): Cell {
-        val (row, column) = mask.randomBit()
-
-        return initCell(row, column)
     }
 
 }
