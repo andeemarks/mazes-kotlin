@@ -33,4 +33,21 @@ class Mask(val rows: Int, val columns: Int) {
     }
 
     val bits: Array<BooleanArray> = Array(rows) { BooleanArray(columns) { true } }
+
+    companion object {
+        fun from(description: List<String>): Mask {
+            val rows = description.size
+            val columns = description.first().length
+
+            val mask = Mask(rows, columns)
+
+            for (row in 0 until rows) {
+                val currentRow = description[row]
+                for (column in 0 until columns) {
+                    mask.set(row, column, currentRow[column] != 'X')
+                }
+            }
+            return mask
+        }
+    }
 }

@@ -75,4 +75,17 @@ class MaskTest {
         }
 
     }
+
+    @Test
+    fun maskCanBeConfiguredFromDSL() {
+        val mask = Mask.from(listOf("X...", ".X..", "..X."))
+
+        assertEquals(3, mask.rows)
+        assertEquals(4, mask.columns)
+
+        assertEquals(mask.bits[0][0], false)
+        assertEquals(mask.bits[0][1], true)
+        assertEquals(mask.bits[1][1], false)
+        assertEquals(mask.bits[2][3], true)
+    }
 }
