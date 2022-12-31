@@ -2,6 +2,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class MaskedGridTest {
 
@@ -55,5 +56,25 @@ class MaskedGridTest {
         val nonMaskedCell = grid.initCell(0, 1)
         assertNotNull(nonMaskedCell)
 
+    }
+
+    @Test
+    fun nonMaskedCellsHaveNeighbours() {
+        val mask = Mask(2, 2)
+        mask.set(0, 0, false)
+        val grid = MaskedGrid(mask)
+        val nonMaskedCell = grid.at(1, 1)
+
+        assertTrue(nonMaskedCell.neighbours().isNotEmpty())
+    }
+
+    @Test
+    fun maskedCellsHaveNoNeighbours() {
+        val mask = Mask(2, 2)
+        mask.set(0, 0, false)
+        val grid = MaskedGrid(mask)
+        val maskedCell = grid.at(0, 0)
+
+        assertTrue(maskedCell.neighbours().isEmpty())
     }
 }

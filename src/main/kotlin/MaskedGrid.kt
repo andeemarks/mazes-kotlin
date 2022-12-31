@@ -3,7 +3,6 @@ class MaskedGrid(val mask: Mask) : Grid(mask.rows, mask.columns) {
 
     init {
         cells = MutableList(rows) { row -> MutableList(columns) { column -> initCell(row, column) } }
-        configureCells()
     }
 
     override fun randomCell(): Cell {
