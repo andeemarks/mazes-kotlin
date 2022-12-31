@@ -21,8 +21,7 @@ class SimpleMaskDemo : Demoable {
 
     private fun dslDescribedMask() {
         val mask = Mask.from(File("ascii-mask.txt").readLines())
-        val grid = MaskedGrid(mask)
-        RecursiveBacktracker().on(grid)
+        val grid = RecursiveBacktracker().on(MaskedGrid(mask))
         t.println(grid.toString())
     }
 
@@ -32,8 +31,7 @@ class SimpleMaskDemo : Demoable {
         mask.set(2, 2, false)
         mask.set(4, 4, false)
 
-        val grid = MaskedGrid(mask)
-        RecursiveBacktracker().on(grid)
+        val grid = RecursiveBacktracker().on(MaskedGrid(mask))
         t.println(grid.toString())
     }
 }

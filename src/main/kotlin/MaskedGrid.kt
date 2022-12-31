@@ -7,6 +7,7 @@ class MaskedGrid(val mask: Mask) : Grid(mask.rows, mask.columns) {
             }
 
         }
+        configureCells()
     }
 
     fun initCell(row: Int, column: Int): Cell {
