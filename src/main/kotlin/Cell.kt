@@ -1,7 +1,7 @@
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
 
-data class Cell(val row: Int, val column: Int) {
+open class Cell(val row: Int, val column: Int) {
     var west: Cell? = null
     var east: Cell? = null
     var south: Cell? = null
@@ -40,12 +40,7 @@ data class Cell(val row: Int, val column: Int) {
         return distances
     }
 
-    fun formatCell(style: TextStyle?, contents: String): Triple<String, String, String> {
-        if (isEmpty()) {
-            val cellStyle = TextColors.black.bg
-
-            return Triple(cellStyle("     "), cellStyle("     "), cellStyle("     "))
-        }
+    open fun formatCell(style: TextStyle?, contents: String): Triple<String, String, String> {
         val cellStyle = style ?: TextColors.white.bg
         val cellNorthBoundary = if (isLinkedTo(north)) "   " else "▔".repeat(3)
         val rowTop = cellStyle("▛$cellNorthBoundary▜")
@@ -68,13 +63,16 @@ data class Cell(val row: Int, val column: Int) {
         return neighbours
     }
 
-    fun isEmpty(): Boolean {
-        return row == -1 && column == -1
+    override fun equals(other: Any?): Boolean {
+        val otherCell = other as Cell
+
+        return otherCell.row == row && otherCell.column == column
     }
 
-    companion object {
-        fun empty(): Cell {
-            return Cell(-1, -1)
-        }
+    override fun hashCode(): Int {
+        var result = row
+        result = 31 * result + column
+
+        return result
     }
 }

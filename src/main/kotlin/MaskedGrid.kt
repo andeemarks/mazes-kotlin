@@ -14,7 +14,7 @@ class MaskedGrid(val mask: Mask) : Grid(mask.rows, mask.columns) {
         return if (isCellMasked) {
             super.at(row, column)
         } else {
-            Cell.empty()
+            NullCell()
         }
     }
 

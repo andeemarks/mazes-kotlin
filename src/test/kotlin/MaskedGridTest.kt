@@ -1,8 +1,7 @@
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertIs
-import kotlin.test.assertTrue
+import kotlin.test.assertNotNull
 
 class MaskedGridTest {
 
@@ -51,8 +50,10 @@ class MaskedGridTest {
         mask.set(0, 0, false)
         val grid = MaskedGrid(mask)
 
-        assertTrue(grid.initCell(0, 0).isEmpty())
-        assertFalse(grid.initCell(0, 1).isEmpty())
+        val maskedCell = grid.initCell(0, 0) as NullCell
+        assertNotNull(maskedCell)
+        val nonMaskedCell = grid.initCell(0, 1)
+        assertNotNull(nonMaskedCell)
 
     }
 }
