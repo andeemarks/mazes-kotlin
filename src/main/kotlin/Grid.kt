@@ -2,6 +2,33 @@ import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
 open class Grid(val rows: Int, val columns: Int) {
+    open val size: Int = this.rows * this.columns
+    var cells: List<MutableList<Cell>> =
+        MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
+
+    init {
+        this.configureCells()
+    }
+
+    open fun configureCells() {
+        eachCell(::configureCell)
+    }
+
+    private fun configureCell(cell: Cell): Cell {
+        cell.north = internalAt(cell.row - 1, cell.column)
+        cell.south = internalAt(cell.row + 1, cell.column)
+        cell.east = internalAt(cell.row, cell.column + 1)
+        cell.west = internalAt(cell.row, cell.column - 1)
+
+        return cell
+    }
+
+    open fun randomCell(): Cell {
+        return at(Random.nextInt(rows), Random.nextInt(columns))
+    }
+
+    open fun cellContentsFor(cell: Cell): String = "   "
+    open fun styleFor(cell: Cell): TextStyle? = null
 
     fun at(row: Int, column: Int): Cell {
         require((0 until rows).contains(row))
@@ -18,10 +45,6 @@ open class Grid(val rows: Int, val columns: Int) {
         }
     }
 
-    open fun randomCell(): Cell {
-        return at(Random.nextInt(rows), Random.nextInt(columns))
-    }
-
     fun eachCell(executor: (cell: Cell) -> Unit) {
         cells.forEach { row -> row.forEach { cell -> executor(cell) } }
     }
@@ -29,23 +52,6 @@ open class Grid(val rows: Int, val columns: Int) {
     fun eachRow(executor: (row: List<Cell>) -> Unit) {
         cells.forEach { row -> executor(row) }
     }
-
-    open fun configureCells() {
-        eachCell(::configureCell)
-    }
-
-    private fun configureCell(cell: Cell): Cell {
-        cell.north = internalAt(cell.row - 1, cell.column)
-        cell.south = internalAt(cell.row + 1, cell.column)
-        cell.east = internalAt(cell.row, cell.column + 1)
-        cell.west = internalAt(cell.row, cell.column - 1)
-
-        return cell
-    }
-
-    open val size: Int = this.rows * this.columns
-    var cells: MutableList<MutableList<Cell>> =
-        MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {
         var display = ""
@@ -67,18 +73,10 @@ open class Grid(val rows: Int, val columns: Int) {
         return "$rowTop\n$rowMiddle\n$rowBottom\n"
     }
 
-
-    open fun cellContentsFor(cell: Cell): String = "   "
-    open fun styleFor(cell: Cell): TextStyle? = null
-
     fun deadEndCells(): List<Cell> {
         val deadEndCells = mutableListOf<Cell>()
         eachCell { cell -> if (cell.links.size == 1) deadEndCells.add(cell) }
 
         return deadEndCells
-    }
-
-    init {
-        this.configureCells()
     }
 }
