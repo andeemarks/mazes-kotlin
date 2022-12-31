@@ -22,7 +22,6 @@ open class Grid(val rows: Int, val columns: Int) {
         return at(Random.nextInt(rows), Random.nextInt(columns))
     }
 
-
     fun eachCell(executor: (cell: Cell) -> Unit) {
         cells.forEach { row -> row.forEach { cell -> executor(cell) } }
     }
@@ -31,7 +30,7 @@ open class Grid(val rows: Int, val columns: Int) {
         cells.forEach { row -> executor(row) }
     }
 
-    private fun configureCells() {
+    open fun configureCells() {
         eachCell(::configureCell)
     }
 
@@ -45,7 +44,7 @@ open class Grid(val rows: Int, val columns: Int) {
     }
 
     open val size: Int = this.rows * this.columns
-    val cells: MutableList<MutableList<Cell>> =
+    var cells: MutableList<MutableList<Cell>> =
         MutableList(rows) { row -> MutableList(columns) { column -> Cell(row, column) } }
 
     override fun toString(): String {

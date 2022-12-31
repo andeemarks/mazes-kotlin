@@ -11,7 +11,8 @@ fun main(_args: Array<String>) {
         HuntAndKillDemo(),
         RecursiveBacktrackerDemo(),
         DeadEndCellCount(),
-        KillingCellsDemo()
+        KillingCellsDemo(),
+        SimpleMaskDemo()
     )
 
     demos.forEach { demo ->

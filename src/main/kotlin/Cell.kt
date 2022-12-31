@@ -41,6 +41,11 @@ data class Cell(val row: Int, val column: Int) {
     }
 
     fun formatCell(style: TextStyle?, contents: String): Triple<String, String, String> {
+        if (isEmpty()) {
+            val cellStyle = TextColors.black.bg
+
+            return Triple(cellStyle("     "), cellStyle("     "), cellStyle("     "))
+        }
         val cellStyle = style ?: TextColors.white.bg
         val cellNorthBoundary = if (isLinkedTo(north)) "   " else "▔".repeat(3)
         val rowTop = cellStyle("▛$cellNorthBoundary▜")
@@ -63,4 +68,13 @@ data class Cell(val row: Int, val column: Int) {
         return neighbours
     }
 
+    fun isEmpty(): Boolean {
+        return row == -1 && column == -1
+    }
+
+    companion object {
+        fun empty(): Cell {
+            return Cell(-1, -1)
+        }
+    }
 }
