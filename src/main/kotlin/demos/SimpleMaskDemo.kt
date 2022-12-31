@@ -4,6 +4,7 @@ import Mask
 import MaskedGrid
 import algos.RecursiveBacktracker
 import com.github.ajalt.mordant.rendering.AnsiLevel
+import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.terminal.Terminal
 import java.io.File
 
@@ -22,7 +23,7 @@ class SimpleMaskDemo : Demoable {
     private fun dslDescribedMask() {
         val mask = Mask.from(File("ascii-mask.txt").readLines())
         val grid = RecursiveBacktracker().on(MaskedGrid(mask))
-        t.println(grid.toString())
+        t.println((TextColors.brightRed)(grid.toString()))
     }
 
     private fun codeDescribedMask() {
@@ -32,7 +33,7 @@ class SimpleMaskDemo : Demoable {
         mask.set(4, 4, false)
 
         val grid = RecursiveBacktracker().on(MaskedGrid(mask))
-        t.println(grid.toString())
+        t.println((TextColors.brightRed)(grid.toString()))
     }
 }
 
