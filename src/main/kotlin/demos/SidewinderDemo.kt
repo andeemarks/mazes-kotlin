@@ -1,6 +1,7 @@
 package demos
 
 import Grid
+import MazePainter
 import algos.Sidewinder
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -13,6 +14,10 @@ class SidewinderDemo(private val style: TextStyle = TextColors.brightWhite) : De
         val grid = tree.on(Grid(10, 10))
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
-        t.println((style)(grid.toString()))
+        t.println((style)(MazePainter().paint(grid)))
     }
+}
+
+fun main() {
+    SidewinderDemo().run()
 }

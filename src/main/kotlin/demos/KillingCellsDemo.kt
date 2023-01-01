@@ -1,6 +1,7 @@
 package demos
 
 import Grid
+import MazePainter
 import algos.RecursiveBacktracker
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -19,6 +20,10 @@ class KillingCellsDemo(private val style: TextStyle = TextColors.brightWhite) : 
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
 
-        t.println((style)(grid.toString()))
+        t.println((style)(MazePainter().paint(grid)))
     }
+}
+
+fun main() {
+    KillingCellsDemo().run()
 }

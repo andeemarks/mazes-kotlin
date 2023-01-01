@@ -1,6 +1,7 @@
 package demos
 
 import Grid
+import MazePainter
 import algos.BinaryTree
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -15,6 +16,10 @@ class BinaryTreeDemo(private val style: TextStyle = TextColors.brightWhite) : De
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
 
-        t.println((style)(grid.toString()))
+        t.println((style)(MazePainter().paint(grid)))
     }
+}
+
+fun main() {
+    BinaryTreeDemo().run()
 }

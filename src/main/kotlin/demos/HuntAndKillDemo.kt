@@ -13,7 +13,6 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) : D
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
     override fun run() {
-        t.println("Hunt and Kill...")
         val tree = HuntAndKill()
         val grid: DistanceGrid = tree.on(DistanceGrid(20, 20)) as DistanceGrid
 

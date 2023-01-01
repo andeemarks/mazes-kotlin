@@ -13,7 +13,6 @@ class RecursiveBacktrackerDemo(private val style: TextStyle = TextColors.brightW
     private val t = Terminal(AnsiLevel.TRUECOLOR)
 
     override fun run() {
-        t.println("Recursive Backtracker...")
         val tree = RecursiveBacktracker()
         val grid: DistanceGrid = tree.on(DistanceGrid(20, 20)) as DistanceGrid
 
