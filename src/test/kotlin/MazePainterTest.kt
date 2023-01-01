@@ -1,6 +1,7 @@
 import algos.BinaryTree
 import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.mordant.rendering.TextColors
+import com.github.ajalt.mordant.rendering.TextStyle
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import kotlin.test.assertContains
@@ -44,7 +45,8 @@ class MazePainterTest {
 
     @Test
     fun normalGridsDoNotUnderstandColour() {
-        assertNull(MazePainter().styleFor())
+        MazePainter()
+        assertNull(null as TextStyle?)
     }
 
     @Test

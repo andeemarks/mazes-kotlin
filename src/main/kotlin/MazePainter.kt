@@ -30,12 +30,10 @@ class MazePainter(private val cellColour: TextColors = green) {
         var rowBottom = ""
         var rowMiddle = ""
         row.forEach { cell ->
-            val formattedCellPieces: Triple<String, String, String>
-            if (grid is DistanceGrid) {
-                formattedCellPieces =
-                    formatCell(cell, styleFor(cell, grid.distances!!), cellContentsFor(cell, grid.distances!!))
+            val formattedCellPieces = if (grid is DistanceGrid) {
+                formatCell(cell, cellContentsFor(cell, grid.distances!!), styleFor(cell, grid.distances!!))
             } else {
-                formattedCellPieces = formatCell(cell, styleFor(), cellContentsFor())
+                formatCell(cell, "   ")
             }
             rowTop += formattedCellPieces.first
             rowMiddle += formattedCellPieces.second
@@ -44,39 +42,32 @@ class MazePainter(private val cellColour: TextColors = green) {
         return "$rowTop\n$rowMiddle\n$rowBottom\n"
     }
 
-    private fun cellContentsFor(): String = "   "
-    fun styleFor(): TextStyle? = null
-
-    private fun formatCell(cell: Cell, style: TextStyle?, contents: String): Triple<String, String, String> {
+    private fun formatCell(cell: Cell, contents: String, style: TextStyle = white.bg): Triple<String, String, String> {
         if (cell is NullCell) {
-            return formatCell()
+            return formatNullCell()
         }
 
-        val cellStyle = style ?: white.bg
         val cellNorthBoundary = if (cell.isLinkedTo(cell.north)) "   " else "▔".repeat(3)
-        val rowTop = cellStyle("▛$cellNorthBoundary▜")
+        val rowTop = style("▛$cellNorthBoundary▜")
         val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "▕"
         val cellWestBoundary = if (cell.isLinkedTo(cell.west)) " " else "▏"
-        val rowMiddle = cellStyle("$cellWestBoundary$contents$cellEastBoundary")
+        val rowMiddle = style("$cellWestBoundary$contents$cellEastBoundary")
         val cellSouthBoundary = if (cell.isLinkedTo(cell.south)) "   " else "▁".repeat(3)
-        val rowBottom = cellStyle("▙$cellSouthBoundary▟")
+        val rowBottom = style("▙$cellSouthBoundary▟")
 
         return Triple(rowTop, rowMiddle, rowBottom)
     }
 
-    private fun formatCell(): Triple<String, String, String> {
-        val cellStyle = black.bg
-
-        return Triple(cellStyle("     "), cellStyle("     "), cellStyle("     "))
+    private fun formatNullCell(): Triple<String, String, String> {
+        return Triple(black.bg("     "), black.bg("     "), black.bg("     "))
     }
-
 
     fun cellContentsFor(cell: Cell, distances: Distances): String {
         distances.distanceFor(cell)?.let {
             return distanceAsSingleChar(distances.distanceFor(cell)!!)
         }
 
-        return cellContentsFor()
+        return "   "
     }
 
     fun distanceAsSingleChar(distance: Int): String {
