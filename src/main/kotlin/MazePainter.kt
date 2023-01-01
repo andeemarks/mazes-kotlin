@@ -14,16 +14,16 @@ class MazePainter(private val grid: Grid, private val cellColour: TextColors = g
 
     fun paint(): String {
         var display = ""
-        grid.eachRow { row -> display += formatRow(grid, row) }
+        grid.eachRow { row -> display += formatRow(row) }
 
         return display.trim()
     }
 
-    private fun formatRow(grid: Grid, row: List<Cell>): String {
+    private fun formatRow(row: List<Cell>): String {
         val formattedRow = FormattedRow()
         row.forEach { cell ->
             val formattedCell = when {
-                grid is DistanceGrid -> formatDistanceCell(cell, grid)
+                grid is DistanceGrid -> formatDistanceCell(cell)
                 cell is NullCell -> formatNullCell()
                 else -> formatRegularCell(cell)
             }
@@ -53,8 +53,8 @@ class MazePainter(private val grid: Grid, private val cellColour: TextColors = g
         return formatCell(cell, EMPTY_CELL_CONTENTS, white.bg)
     }
 
-    private fun formatDistanceCell(cell: Cell, grid: DistanceGrid): FormattedCell {
-        return formatCell(cell, contentsFor(cell, grid), styleFor(cell, grid))
+    private fun formatDistanceCell(cell: Cell): FormattedCell {
+        return formatCell(cell, contentsFor(cell), styleFor(cell))
     }
 
     private fun formatNullCell(): FormattedCell {
@@ -74,8 +74,8 @@ class MazePainter(private val grid: Grid, private val cellColour: TextColors = g
         return FormattedCell(rowTop, rowMiddle, rowBottom)
     }
 
-    fun contentsFor(cell: Cell, grid: DistanceGrid): String {
-        val distances = grid.distances!!
+    fun contentsFor(cell: Cell): String {
+        val distances = (grid as DistanceGrid).distances!!
         distances.distanceFor(cell)?.let {
             return grid.format(distances.distanceFor(cell)!!)
         }
@@ -83,8 +83,8 @@ class MazePainter(private val grid: Grid, private val cellColour: TextColors = g
         return EMPTY_CELL_CONTENTS
     }
 
-    fun styleFor(cell: Cell, grid: DistanceGrid): TextStyle {
-        val distances = grid.distances!!
+    fun styleFor(cell: Cell): TextStyle {
+        val distances = (grid as DistanceGrid).distances!!
         val distance = distances.distanceFor(cell) ?: return white
         val maximumDistance = distances.maxDistance().second
         val intensity = (maximumDistance - distance).toFloat() / maximumDistance

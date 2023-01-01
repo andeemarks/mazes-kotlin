@@ -1,12 +1,10 @@
 import algos.BinaryTree
 import com.github.ajalt.colormath.model.RGB
 import com.github.ajalt.mordant.rendering.TextColors
-import com.github.ajalt.mordant.rendering.TextStyle
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class MazePainterTest {
@@ -19,23 +17,16 @@ class MazePainterTest {
         root.link(linkedCell)
         grid.distances = root.distances()
 
-        val painter = MazePainter()
+        val painter = MazePainter(grid)
 
-        assertContains(painter.contentsFor(root, grid), "0")
-        assertContains(painter.contentsFor(linkedCell, grid), "1")
+        assertContains(painter.contentsFor(root), "0")
+        assertContains(painter.contentsFor(linkedCell), "1")
     }
 
     @Test
     fun rejectsUnsupportedStyles() {
-        assertThrows(IllegalArgumentException::class.java) { MazePainter(TextColors.brightBlue) }
-        assertThrows(IllegalArgumentException::class.java) { MazePainter(TextColors.gray) }
-    }
-
-
-    @Test
-    fun normalGridsDoNotUnderstandColour() {
-        MazePainter()
-        assertNull(null as TextStyle?)
+        assertThrows(IllegalArgumentException::class.java) { MazePainter(Grid(2, 3), TextColors.brightBlue) }
+        assertThrows(IllegalArgumentException::class.java) { MazePainter(Grid(2, 3), TextColors.gray) }
     }
 
     @Test
@@ -78,8 +69,8 @@ class MazePainterTest {
 
         val distances = grid.at(0, 0).distances()
         grid.distances = distances
-        val painter = MazePainter(style)
+        val painter = MazePainter(grid, style)
 
-        return painter.styleFor(grid.randomCell(), grid).bgColor!!.toSRGB()
+        return painter.styleFor(grid.randomCell()).bgColor!!.toSRGB()
     }
 }
