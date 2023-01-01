@@ -49,7 +49,7 @@ class MazePainter(private val cellColour: TextColors = green) {
     }
 
     private fun formatDistanceCell(cell: Cell, grid: DistanceGrid): Triple<String, String, String> {
-        return formatCell(cell, cellContentsFor(cell, grid.distances!!), styleFor(cell, grid.distances!!))
+        return formatCell(cell, cellContentsFor(cell, grid), styleFor(cell, grid.distances!!))
     }
 
     private fun formatNullCell(): Triple<String, String, String> {
@@ -68,26 +68,13 @@ class MazePainter(private val cellColour: TextColors = green) {
         return Triple(rowTop, rowMiddle, rowBottom)
     }
 
-    fun cellContentsFor(cell: Cell, distances: Distances): String {
+    fun cellContentsFor(cell: Cell, grid: DistanceGrid): String {
+        val distances = grid.distances!!
         distances.distanceFor(cell)?.let {
-            return distanceAsSingleChar(distances.distanceFor(cell)!!)
+            return grid.distanceAsSingleChar(distances.distanceFor(cell)!!)
         }
 
         return "   "
-    }
-
-    fun distanceAsSingleChar(distance: Int): String {
-        val formattedDistance = distance.toUInt().toString(35)
-
-        if (formattedDistance.length == 1) {
-            return " $formattedDistance "
-        }
-
-        if (formattedDistance.length == 2) {
-            return " $formattedDistance"
-        }
-
-        return formattedDistance
     }
 
     fun styleFor(cell: Cell, distances: Distances): TextStyle {

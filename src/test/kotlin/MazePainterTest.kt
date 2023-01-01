@@ -21,19 +21,8 @@ class MazePainterTest {
 
         val painter = MazePainter()
 
-        assertContains(painter.cellContentsFor(root, grid.distances!!), "0")
-        assertContains(painter.cellContentsFor(linkedCell, grid.distances!!), "1")
-    }
-
-    @Test
-    fun formatsCellsDistanceToOneCharacter() {
-        val painter = MazePainter()
-
-        assertEquals(" 9 ", painter.distanceAsSingleChar(9))
-        assertEquals(" a ", painter.distanceAsSingleChar(10))
-        assertEquals(" f ", painter.distanceAsSingleChar(15))
-        assertEquals(" 15", painter.distanceAsSingleChar(40))
-        assertEquals("100", painter.distanceAsSingleChar(35 * 35))
+        assertContains(painter.cellContentsFor(root, grid), "0")
+        assertContains(painter.cellContentsFor(linkedCell, grid), "1")
     }
 
     @Test
