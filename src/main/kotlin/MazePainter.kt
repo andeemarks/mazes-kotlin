@@ -19,15 +19,13 @@ class MazePainter(private val cellColour: TextColors = green) {
 
     fun paint(grid: Grid): String {
         var display = ""
-        grid.eachRow { row -> display += rowToString(grid, row) }
+        grid.eachRow { row -> display += formatRow(grid, row) }
 
         return display.trim()
     }
 
-    private fun rowToString(grid: Grid, row: List<Cell>): String {
-        var rowTop = ""
-        var rowBottom = ""
-        var rowMiddle = ""
+    private fun formatRow(grid: Grid, row: List<Cell>): String {
+        val formattedRow = FormattedRow()
         row.forEach { cell ->
             val formattedCell = when {
                 grid is DistanceGrid -> formatDistanceCell(cell, grid)
@@ -35,15 +33,22 @@ class MazePainter(private val cellColour: TextColors = green) {
                 else -> formatRegularCell(cell)
             }
 
-            rowTop += formattedCell.first
-            rowMiddle += formattedCell.second
-            rowBottom += formattedCell.third
+            formattedRow.addCell(formattedCell)
         }
-        return "$rowTop\n$rowMiddle\n$rowBottom\n"
+        return formattedRow.toString()
     }
 
-    class FormattedCell(val first: String, val second: String, val third: String) {
+    class FormattedRow(private var top: String = "", private var middle: String = "", private var bottom: String = "") {
+        fun addCell(cell: FormattedCell) {
+            top += cell.top
+            middle += cell.middle
+            bottom += cell.bottom
+        }
+
+        override fun toString(): String = "$top\n$middle\n$bottom\n"
     }
+
+    class FormattedCell(val top: String, val middle: String, val bottom: String)
 
     private fun formatRegularCell(cell: Cell): FormattedCell {
         return formatCell(cell, "   ", white.bg)
