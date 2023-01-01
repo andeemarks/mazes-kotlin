@@ -21,8 +21,8 @@ class MazePainterTest {
 
         val painter = MazePainter()
 
-        assertContains(painter.cellContentsFor(root, grid), "0")
-        assertContains(painter.cellContentsFor(linkedCell, grid), "1")
+        assertContains(painter.contentsFor(root, grid), "0")
+        assertContains(painter.contentsFor(linkedCell, grid), "1")
     }
 
     @Test
@@ -80,6 +80,6 @@ class MazePainterTest {
         grid.distances = distances
         val painter = MazePainter(style)
 
-        return painter.styleFor(grid.randomCell(), grid.distances!!).bgColor!!.toSRGB()
+        return painter.styleFor(grid.randomCell(), grid).bgColor!!.toSRGB()
     }
 }
