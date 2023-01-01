@@ -25,7 +25,7 @@ class WilsonsDemo : Demoable {
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println(MazePainter(TextColors.green).paint(grid))
+        t.println(MazePainter(grid, TextColors.green).paint())
 
     }
 }

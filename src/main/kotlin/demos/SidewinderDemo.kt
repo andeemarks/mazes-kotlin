@@ -14,7 +14,7 @@ class SidewinderDemo(private val style: TextStyle = TextColors.brightWhite) : De
         val grid = tree.on(Grid(10, 10))
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
-        t.println((style)(MazePainter().paint(grid)))
+        t.println((style)(MazePainter(grid).paint()))
     }
 }
 

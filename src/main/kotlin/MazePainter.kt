@@ -4,7 +4,7 @@ import com.github.ajalt.mordant.rendering.TextStyle
 
 private const val EMPTY_CELL_CONTENTS = "   "
 
-class MazePainter(private val cellColour: TextColors = green) {
+class MazePainter(private val grid: Grid, private val cellColour: TextColors = green) {
 
     init {
         require(
@@ -12,7 +12,7 @@ class MazePainter(private val cellColour: TextColors = green) {
         ) { "Color must be one of red, green, blue, yellow or magenta" }
     }
 
-    fun paint(grid: Grid): String {
+    fun paint(): String {
         var display = ""
         grid.eachRow { row -> display += formatRow(grid, row) }
 

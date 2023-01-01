@@ -20,7 +20,7 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) : D
         val distances = start.distances()
 
         grid.distances = distances
-        t.println((style)(MazePainter(TextColors.magenta).paint(grid)))
+        t.println((style)(MazePainter(grid, TextColors.magenta).paint()))
 
     }
 

@@ -20,7 +20,7 @@ class KillingCellsDemo(private val style: TextStyle = TextColors.brightWhite) : 
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
 
-        t.println((style)(MazePainter().paint(grid)))
+        t.println((style)(MazePainter(grid).paint()))
     }
 }
 

@@ -26,7 +26,6 @@ class AldousBroderDemo(private val style: TextStyle = TextColors.white) : Demoab
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println((style)(MazePainter(TextColors.blue).paint(grid)))
-//        t.println((style)(grid.toString()))
+        t.println((style)(MazePainter(grid, TextColors.blue).paint()))
     }
 }
