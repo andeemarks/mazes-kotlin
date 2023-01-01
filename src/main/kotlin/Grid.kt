@@ -1,4 +1,3 @@
-import com.github.ajalt.mordant.rendering.TextStyle
 import kotlin.random.Random
 
 open class Grid(val rows: Int, val columns: Int) {
@@ -27,9 +26,6 @@ open class Grid(val rows: Int, val columns: Int) {
         return at(Random.nextInt(rows), Random.nextInt(columns))
     }
 
-    open fun cellContentsFor(cell: Cell): String = "   "
-    open fun styleFor(cell: Cell): TextStyle? = null
-
     fun at(row: Int, column: Int): Cell {
         require((0 until rows).contains(row))
         require((0 until columns).contains(column))
@@ -53,25 +49,9 @@ open class Grid(val rows: Int, val columns: Int) {
         cells.forEach { row -> executor(row) }
     }
 
-    override fun toString(): String {
-        var display = ""
-        eachRow { row -> display += rowToString(row) }
-
-        return display.trim()
-    }
-
-    private fun rowToString(row: List<Cell>): String {
-        var rowTop = ""
-        var rowBottom = ""
-        var rowMiddle = ""
-        row.forEach { cell ->
-            val formattedCellPieces = cell.formatCell(styleFor(cell), cellContentsFor(cell))
-            rowTop += formattedCellPieces.first
-            rowMiddle += formattedCellPieces.second
-            rowBottom += formattedCellPieces.third
-        }
-        return "$rowTop\n$rowMiddle\n$rowBottom\n"
-    }
+//    override fun toString(): String {
+//        return MazePainter().paint(this)
+//    }
 
     fun deadEndCells(): List<Cell> {
         val deadEndCells = mutableListOf<Cell>()

@@ -1,6 +1,7 @@
 package demos
 
 import DistanceGrid
+import MazePainter
 import algos.RecursiveBacktracker
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -14,13 +15,14 @@ class RecursiveBacktrackerDemo(private val style: TextStyle = TextColors.brightW
     override fun run() {
         t.println("Recursive Backtracker...")
         val tree = RecursiveBacktracker()
-        val grid: DistanceGrid = tree.on(DistanceGrid(20, 20, TextColors.magenta)) as DistanceGrid
+        val grid: DistanceGrid = tree.on(DistanceGrid(20, 20)) as DistanceGrid
 
         val start = grid.at(0, 0)
         val distances = start.distances()
 
         grid.distances = distances
-        t.println((style)(grid.toString()))
+        t.println((style)(MazePainter(TextColors.magenta).paint(grid)))
+
     }
 
 }

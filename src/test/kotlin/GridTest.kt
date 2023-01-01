@@ -1,6 +1,9 @@
 import algos.BinaryTree
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class GridTest {
 
@@ -65,13 +68,6 @@ class GridTest {
         assertEquals(middleCell.south, grid.at(2, 1))
         assertEquals(middleCell.east, grid.at(1, 2))
         assertEquals(middleCell.west, grid.at(1, 0))
-    }
-
-    @Test
-    fun normalGridsDoNotUnderstandColour() {
-        val grid = Grid(3, 5)
-
-        assertNull(grid.styleFor(grid.randomCell()))
     }
 
     @Test

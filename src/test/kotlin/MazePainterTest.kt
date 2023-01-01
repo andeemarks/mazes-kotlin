@@ -5,41 +5,50 @@ import org.junit.Assert.assertThrows
 import org.junit.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-class DistanceGridTest {
+class MazePainterTest {
 
     @Test
-    fun displaysACellsDistance() {
-        val grid = DistanceGrid(3, 4, TextColors.red)
+    fun formatsADistanceGridCellsToOneCharacter() {
+        val grid = DistanceGrid(3, 4)
         val root = Cell(1, 2)
         val linkedCell = Cell(2, 3)
         root.link(linkedCell)
         grid.distances = root.distances()
 
-        assertContains(grid.cellContentsFor(root), "0")
-        assertContains(grid.cellContentsFor(linkedCell), "1")
+        val painter = MazePainter()
+
+        assertContains(painter.cellContentsFor(root, grid.distances!!), "0")
+        assertContains(painter.cellContentsFor(linkedCell, grid.distances!!), "1")
     }
 
     @Test
-    fun displaysDistancesOver9AsLettersToKeepUniformWidth() {
-        val grid = DistanceGrid(10, 10, TextColors.red)
+    fun formatsCellsDistanceToOneCharacter() {
+        val painter = MazePainter()
 
-        assertEquals(" 9 ", grid.distanceAsSingleChar(9))
-        assertEquals(" a ", grid.distanceAsSingleChar(10))
-        assertEquals(" f ", grid.distanceAsSingleChar(15))
-        assertEquals(" 15", grid.distanceAsSingleChar(40))
-        assertEquals("100", grid.distanceAsSingleChar(35 * 35))
+        assertEquals(" 9 ", painter.distanceAsSingleChar(9))
+        assertEquals(" a ", painter.distanceAsSingleChar(10))
+        assertEquals(" f ", painter.distanceAsSingleChar(15))
+        assertEquals(" 15", painter.distanceAsSingleChar(40))
+        assertEquals("100", painter.distanceAsSingleChar(35 * 35))
     }
 
     @Test
-    fun gridsRejectUnsupportedStyles() {
-        assertThrows(IllegalArgumentException::class.java) { DistanceGrid(10, 10, TextColors.brightBlue) }
-        assertThrows(IllegalArgumentException::class.java) { DistanceGrid(10, 10, TextColors.gray) }
+    fun rejectsUnsupportedStyles() {
+        assertThrows(IllegalArgumentException::class.java) { MazePainter(TextColors.brightBlue) }
+        assertThrows(IllegalArgumentException::class.java) { MazePainter(TextColors.gray) }
+    }
+
+
+    @Test
+    fun normalGridsDoNotUnderstandColour() {
+        assertNull(MazePainter().styleFor())
     }
 
     @Test
-    fun gridsFormatCellBGColourBasedOnStyle() {
+    fun formatsCellBGColourBasedOnStyle() {
         var rgb = cellBGColourForStyle(TextColors.red)
 
         assertTrue(rgb.r > 0)
@@ -74,11 +83,12 @@ class DistanceGridTest {
     }
 
     private fun cellBGColourForStyle(style: TextColors): RGB {
-        val grid: DistanceGrid = BinaryTree().on(DistanceGrid(10, 10, style)) as DistanceGrid
+        val grid: DistanceGrid = BinaryTree().on(DistanceGrid(10, 10)) as DistanceGrid
 
         val distances = grid.at(0, 0).distances()
         grid.distances = distances
+        val painter = MazePainter(style)
 
-        return grid.styleFor(grid.randomCell()).bgColor!!.toSRGB()
+        return painter.styleFor(grid.randomCell(), grid.distances!!).bgColor!!.toSRGB()
     }
 }

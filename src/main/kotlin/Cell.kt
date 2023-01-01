@@ -1,6 +1,3 @@
-import com.github.ajalt.mordant.rendering.TextColors
-import com.github.ajalt.mordant.rendering.TextStyle
-
 open class Cell(val row: Int, val column: Int) {
     var west: Cell? = null
     var east: Cell? = null
@@ -38,19 +35,6 @@ open class Cell(val row: Int, val column: Int) {
             frontier = newFrontier
         }
         return distances
-    }
-
-    open fun formatCell(style: TextStyle?, contents: String): Triple<String, String, String> {
-        val cellStyle = style ?: TextColors.white.bg
-        val cellNorthBoundary = if (isLinkedTo(north)) "   " else "▔".repeat(3)
-        val rowTop = cellStyle("▛$cellNorthBoundary▜")
-        val cellEastBoundary = if (isLinkedTo(east)) " " else "▕"
-        val cellWestBoundary = if (isLinkedTo(west)) " " else "▏"
-        val rowMiddle = cellStyle("$cellWestBoundary$contents$cellEastBoundary")
-        val cellSouthBoundary = if (isLinkedTo(south)) "   " else "▁".repeat(3)
-        val rowBottom = cellStyle("▙$cellSouthBoundary▟")
-
-        return Triple(rowTop, rowMiddle, rowBottom)
     }
 
     fun neighbours(): List<Cell> {

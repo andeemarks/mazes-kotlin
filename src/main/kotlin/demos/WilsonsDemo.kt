@@ -1,6 +1,7 @@
 package demos
 
 import DistanceGrid
+import MazePainter
 import algos.Wilsons
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -19,11 +20,12 @@ class WilsonsDemo : Demoable {
 
     private fun buildMaze() {
         val tree = Wilsons()
-        val distanceGrid = DistanceGrid(10, 10, TextColors.green)
+        val distanceGrid = DistanceGrid(10, 10)
         val grid = tree.on(distanceGrid) as DistanceGrid
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println(grid.toString())
+        t.println(MazePainter(TextColors.green).paint(grid))
+
     }
 }
