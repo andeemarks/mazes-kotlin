@@ -38,7 +38,11 @@ class MazePainter(private val cellColour: TextColors = green) {
         return formattedRow.toString()
     }
 
-    class FormattedRow(private var top: String = "", private var middle: String = "", private var bottom: String = "") {
+    data class FormattedRow(
+        private var top: String = "",
+        private var middle: String = "",
+        private var bottom: String = ""
+    ) {
         fun addCell(cell: FormattedCell) {
             top += cell.top
             middle += cell.middle
@@ -48,7 +52,7 @@ class MazePainter(private val cellColour: TextColors = green) {
         override fun toString(): String = "$top\n$middle\n$bottom\n"
     }
 
-    class FormattedCell(val top: String, val middle: String, val bottom: String)
+    data class FormattedCell(val top: String, val middle: String, val bottom: String)
 
     private fun formatRegularCell(cell: Cell): FormattedCell {
         return formatCell(cell, "   ", white.bg)
@@ -77,7 +81,7 @@ class MazePainter(private val cellColour: TextColors = green) {
     fun cellContentsFor(cell: Cell, grid: DistanceGrid): String {
         val distances = grid.distances!!
         distances.distanceFor(cell)?.let {
-            return grid.distanceAsSingleChar(distances.distanceFor(cell)!!)
+            return grid.format(distances.distanceFor(cell)!!)
         }
 
         return "   "

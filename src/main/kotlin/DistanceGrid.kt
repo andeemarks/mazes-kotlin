@@ -10,7 +10,7 @@ class DistanceGrid(rows: Int, columns: Int) : Grid(rows, columns) {
         }
 
 
-    fun distanceAsSingleChar(distance: Int): String {
+    fun format(distance: Int): String {
         val formattedDistance = distance.toUInt().toString(35)
 
         if (formattedDistance.length == 1) {
