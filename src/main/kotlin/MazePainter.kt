@@ -22,7 +22,6 @@ class MazePainter(private val cellColour: TextColors = green) {
         grid.eachRow { row -> display += rowToString(grid, row) }
 
         return display.trim()
-
     }
 
     private fun rowToString(grid: Grid, row: List<Cell>): String {
@@ -30,23 +29,34 @@ class MazePainter(private val cellColour: TextColors = green) {
         var rowBottom = ""
         var rowMiddle = ""
         row.forEach { cell ->
-            val formattedCellPieces = if (grid is DistanceGrid) {
-                formatCell(cell, cellContentsFor(cell, grid.distances!!), styleFor(cell, grid.distances!!))
+            val formattedCell = if (grid is DistanceGrid) {
+                formatDistanceCell(cell, grid)
+            } else if (cell is NullCell) {
+                formatNullCell()
             } else {
-                formatCell(cell, "   ")
+                formatRegularCell(cell)
             }
-            rowTop += formattedCellPieces.first
-            rowMiddle += formattedCellPieces.second
-            rowBottom += formattedCellPieces.third
+
+            rowTop += formattedCell.first
+            rowMiddle += formattedCell.second
+            rowBottom += formattedCell.third
         }
         return "$rowTop\n$rowMiddle\n$rowBottom\n"
     }
 
-    private fun formatCell(cell: Cell, contents: String, style: TextStyle = white.bg): Triple<String, String, String> {
-        if (cell is NullCell) {
-            return formatNullCell()
-        }
+    private fun formatRegularCell(cell: Cell): Triple<String, String, String> {
+        return formatCell(cell, "   ", white.bg)
+    }
 
+    private fun formatDistanceCell(cell: Cell, grid: DistanceGrid): Triple<String, String, String> {
+        return formatCell(cell, cellContentsFor(cell, grid.distances!!), styleFor(cell, grid.distances!!))
+    }
+
+    private fun formatNullCell(): Triple<String, String, String> {
+        return Triple(black.bg("     "), black.bg("     "), black.bg("     "))
+    }
+
+    private fun formatCell(cell: Cell, contents: String, style: TextStyle): Triple<String, String, String> {
         val cellNorthBoundary = if (cell.isLinkedTo(cell.north)) "   " else "▔".repeat(3)
         val rowTop = style("▛$cellNorthBoundary▜")
         val cellEastBoundary = if (cell.isLinkedTo(cell.east)) " " else "▕"
@@ -56,10 +66,6 @@ class MazePainter(private val cellColour: TextColors = green) {
         val rowBottom = style("▙$cellSouthBoundary▟")
 
         return Triple(rowTop, rowMiddle, rowBottom)
-    }
-
-    private fun formatNullCell(): Triple<String, String, String> {
-        return Triple(black.bg("     "), black.bg("     "), black.bg("     "))
     }
 
     fun cellContentsFor(cell: Cell, distances: Distances): String {
