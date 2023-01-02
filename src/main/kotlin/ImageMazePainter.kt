@@ -1,23 +1,10 @@
-import com.github.ajalt.mordant.rendering.TextColors
 import com.github.nwillc.ksvg.RenderMode
 import com.github.nwillc.ksvg.elements.Container
 import com.github.nwillc.ksvg.elements.G
 import com.github.nwillc.ksvg.elements.SVG
 import java.io.FileWriter
 
-class ImageMazePainter(private val grid: Grid, private val cellColour: TextColors = TextColors.green) {
-
-    init {
-        require(
-            cellColour in listOf(
-                TextColors.red,
-                TextColors.blue,
-                TextColors.green,
-                TextColors.magenta,
-                TextColors.yellow
-            )
-        ) { "Color must be one of red, green, blue, yellow or magenta" }
-    }
+class ImageMazePainter(private val grid: Grid) {
 
     fun paint() {
         renderGrid()
