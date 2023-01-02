@@ -6,11 +6,11 @@ import java.io.FileWriter
 
 class ImageMazePainter(private val grid: Grid) {
 
-    fun paint() {
-        renderGrid()
+    fun paint(fileName: String = "maze.svg") {
+        renderGrid(fileName)
     }
 
-    private fun renderGrid() {
+    private fun renderGrid(fileName: String) {
         val svg = SVG.svg(true) {
             height = (grid.rows * 10).toString()
             width = (grid.columns * 10).toString()
@@ -25,7 +25,7 @@ class ImageMazePainter(private val grid: Grid) {
             grid.eachCell { cell -> cell(cell) }
         }
 
-        FileWriter("maze.svg").use { svg.render(it, RenderMode.FILE) }
+        FileWriter(fileName).use { svg.render(it, RenderMode.FILE) }
     }
 
     private fun Container.cell(cell: Cell) {

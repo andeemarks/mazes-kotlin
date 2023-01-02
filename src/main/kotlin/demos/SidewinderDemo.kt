@@ -16,7 +16,7 @@ class SidewinderDemo(private val style: TextStyle = TextColors.brightWhite) : De
 
         val t = Terminal(AnsiLevel.TRUECOLOR)
         t.println((style)(AsciiMazePainter(grid).paint()))
-        ImageMazePainter(grid).paint()
+        ImageMazePainter(grid).paint("sidewinder.svg")
     }
 }
 
