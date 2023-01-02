@@ -1,7 +1,7 @@
 package demos
 
+import AsciiMazePainter
 import DistanceGrid
-import MazePainter
 import algos.AldousBroder
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -26,6 +26,6 @@ class AldousBroderDemo(private val style: TextStyle = TextColors.white) : Demoab
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println((style)(MazePainter(grid, TextColors.blue).paint()))
+        t.println((style)(AsciiMazePainter(grid, TextColors.blue).paint()))
     }
 }

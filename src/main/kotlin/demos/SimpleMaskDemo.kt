@@ -1,8 +1,8 @@
 package demos
 
+import AsciiMazePainter
 import Mask
 import MaskedGrid
-import MazePainter
 import algos.RecursiveBacktracker
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -24,7 +24,7 @@ class SimpleMaskDemo : Demoable {
     private fun dslDescribedMask() {
         val mask = Mask.from(File("ascii-mask.txt").readLines())
         val grid = RecursiveBacktracker().on(MaskedGrid(mask))
-        t.println((TextColors.black)(MazePainter(grid).paint()))
+        t.println((TextColors.black)(AsciiMazePainter(grid).paint()))
     }
 
     private fun codeDescribedMask() {
@@ -34,7 +34,7 @@ class SimpleMaskDemo : Demoable {
         mask.set(4, 4, false)
 
         val grid = RecursiveBacktracker().on(MaskedGrid(mask))
-        t.println((TextColors.black)(MazePainter(grid).paint()))
+        t.println((TextColors.black)(AsciiMazePainter(grid).paint()))
     }
 }
 

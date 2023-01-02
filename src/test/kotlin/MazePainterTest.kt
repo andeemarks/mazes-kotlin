@@ -17,7 +17,7 @@ class MazePainterTest {
         root.link(linkedCell)
         grid.distances = root.distances()
 
-        val painter = MazePainter(grid)
+        val painter = AsciiMazePainter(grid)
 
         assertContains(painter.contentsFor(root), "0")
         assertContains(painter.contentsFor(linkedCell), "1")
@@ -25,8 +25,8 @@ class MazePainterTest {
 
     @Test
     fun rejectsUnsupportedStyles() {
-        assertThrows(IllegalArgumentException::class.java) { MazePainter(Grid(2, 3), TextColors.brightBlue) }
-        assertThrows(IllegalArgumentException::class.java) { MazePainter(Grid(2, 3), TextColors.gray) }
+        assertThrows(IllegalArgumentException::class.java) { AsciiMazePainter(Grid(2, 3), TextColors.brightBlue) }
+        assertThrows(IllegalArgumentException::class.java) { AsciiMazePainter(Grid(2, 3), TextColors.gray) }
     }
 
     @Test
@@ -69,7 +69,7 @@ class MazePainterTest {
 
         val distances = grid.at(0, 0).distances()
         grid.distances = distances
-        val painter = MazePainter(grid, style)
+        val painter = AsciiMazePainter(grid, style)
 
         return painter.styleFor(grid.randomCell()).bgColor!!.toSRGB()
     }

@@ -1,7 +1,7 @@
 package demos
 
+import AsciiMazePainter
 import DistanceGrid
-import MazePainter
 import algos.HuntAndKill
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -20,7 +20,7 @@ class HuntAndKillDemo(private val style: TextStyle = TextColors.brightWhite) : D
         val distances = start.distances()
 
         grid.distances = distances
-        t.println((style)(MazePainter(grid, TextColors.magenta).paint()))
+        t.println((style)(AsciiMazePainter(grid, TextColors.magenta).paint()))
 
     }
 

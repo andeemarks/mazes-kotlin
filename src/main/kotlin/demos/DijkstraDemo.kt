@@ -1,7 +1,7 @@
 package demos
 
+import AsciiMazePainter
 import DistanceGrid
-import MazePainter
 import algos.BinaryTree
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -19,15 +19,15 @@ class DijkstraDemo(private val style: TextStyle = TextColors.white) : Demoable {
         grid.distances = distances
         val t = Terminal(AnsiLevel.TRUECOLOR)
         t.println("All cell distances from (0, 0)...")
-        t.println((style)(MazePainter(grid, TextColors.red).paint()))
+        t.println((style)(AsciiMazePainter(grid, TextColors.red).paint()))
 
         grid.distances = distances.pathTo(grid.at(8, 6))
         t.println("Shortest path from (0, 0) to (8, 6)...")
-        t.println((style)(MazePainter(grid, TextColors.red).paint()))
+        t.println((style)(AsciiMazePainter(grid, TextColors.red).paint()))
 
         val (newGoal, _) = distances.maxDistance()
         grid.distances = distances.pathTo(newGoal)
         t.println("Longest path from (0, 0)...")
-        t.println((style)(MazePainter(grid, TextColors.red).paint()))
+        t.println((style)(AsciiMazePainter(grid, TextColors.red).paint()))
     }
 }

@@ -1,7 +1,7 @@
 package demos
 
+import AsciiMazePainter
 import DistanceGrid
-import MazePainter
 import algos.Wilsons
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -25,7 +25,7 @@ class WilsonsDemo : Demoable {
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println(MazePainter(grid, TextColors.green).paint())
+        t.println(AsciiMazePainter(grid, TextColors.green).paint())
 
     }
 }
