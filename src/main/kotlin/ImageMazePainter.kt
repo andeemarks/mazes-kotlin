@@ -36,8 +36,8 @@ class ImageMazePainter(private val grid: Grid) {
             id = "cell"
             rect {
                 cssClass = "white-stroke"
-                width = "10"
-                height = "10"
+                width = "11"
+                height = "11"
                 x = "$cellX"
                 y = "$cellY"
                 fill = "white"
@@ -45,72 +45,72 @@ class ImageMazePainter(private val grid: Grid) {
             if (cell !is NullCell) {
                 rect {
                     cssClass = "black-stroke"
-                    width = "8"
-                    height = "8"
-                    x = "${cellX + 1}"
-                    y = "${cellY + 1}"
+                    width = "11"
+                    height = "11"
+                    x = "$cellX"
+                    y = "$cellY"
                     fill = styleFor(cell)
                 }
             }
             g {
                 id = "doors"
                 cssClass = "black-stroke"
-                if (cell.isLinkedTo(cell.east)) {
-                    eastDoor(cellX, cellY)
+                if (!cell.isLinkedTo(cell.east)) {
+                    eastWall(cellX, cellY)
                 }
-                if (cell.isLinkedTo(cell.west)) {
-                    westDoor(cellX, cellY)
+                if (!cell.isLinkedTo(cell.west)) {
+                    westWall(cellX, cellY)
                 }
-                if (cell.isLinkedTo(cell.north)) {
-                    northDoor(cellX, cellY)
+                if (!cell.isLinkedTo(cell.north)) {
+                    northWall(cellX, cellY)
                 }
-                if (cell.isLinkedTo(cell.south)) {
-                    southDoor(cellX, cellY)
+                if (!cell.isLinkedTo(cell.south)) {
+                    southWall(cellX, cellY)
                 }
             }
         }
     }
 
-    private fun G.southDoor(cellX: Int, cellY: Int) {
+    private fun G.southWall(cellX: Int, cellY: Int) {
         rect {
-            id = "south-door"
-            width = "8"
-            height = "2"
-            x = "${cellX + 1}"
+            id = "south-wall"
+            width = "10"
+            height = "1"
+            x = "$cellX"
             y = "${cellY + 10}"
             fill = "black"
         }
     }
 
-    private fun G.northDoor(cellX: Int, cellY: Int) {
+    private fun G.northWall(cellX: Int, cellY: Int) {
         rect {
-            id = "north-door"
-            width = "8"
-            height = "2"
-            x = "${cellX + 1}"
-            y = "${cellY - 1}"
+            id = "north-wall"
+            width = "10"
+            height = "1"
+            x = "$cellX"
+            y = "$cellY"
             fill = "black"
         }
     }
 
-    private fun G.westDoor(cellX: Int, cellY: Int) {
+    private fun G.westWall(cellX: Int, cellY: Int) {
         rect {
-            id = "west-door"
-            width = "2"
-            height = "8"
-            x = "${cellX - 1}"
-            y = "${cellY + 1}"
+            id = "west-wall"
+            width = "1"
+            height = "10"
+            x = "$cellX"
+            y = "$cellY"
             fill = "black"
         }
     }
 
-    private fun G.eastDoor(cellX: Int, cellY: Int) {
+    private fun G.eastWall(cellX: Int, cellY: Int) {
         rect {
-            id = "east-door"
-            width = "2"
-            height = "8"
+            id = "east-wall"
+            width = "1"
+            height = "10"
             x = "${cellX + 10}"
-            y = "${cellY + 1}"
+            y = "$cellY"
             fill = "black"
         }
     }
