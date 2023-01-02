@@ -1,7 +1,7 @@
 package demos
 
-import AsciiMazePainter
 import DistanceGrid
+import ImageMazePainter
 import algos.AldousBroder
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -15,17 +15,21 @@ class AldousBroderDemo(private val style: TextStyle = TextColors.white) : Demoab
     override fun run() {
         repeat(5) { i ->
             t.println("Aldous Broder iteration $i...")
-            buildMaze()
+            buildMaze(i)
         }
     }
 
-    private fun buildMaze() {
+    private fun buildMaze(mazeIterationNumber: Int) {
         val tree = AldousBroder()
         val distanceGrid = DistanceGrid(10, 10)
         val grid = tree.on(distanceGrid) as DistanceGrid
         val middleCell = distanceGrid.at(5, 5)
         grid.distances = middleCell.distances()
 
-        t.println((style)(AsciiMazePainter(grid, TextColors.blue).paint()))
+        ImageMazePainter(grid).paint("aldous-broder-${mazeIterationNumber}.svg")
     }
+}
+
+fun main() {
+    AldousBroderDemo().run()
 }

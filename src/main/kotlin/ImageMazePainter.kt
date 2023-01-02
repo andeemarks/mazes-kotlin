@@ -10,25 +10,18 @@ private const val CELL_SIZE = 10
 class ImageMazePainter(private val grid: Grid) {
 
     fun paint(fileName: String = "maze.svg") {
-        renderGrid(fileName)
+        val svg = generateSVG()
+
+        FileWriter(fileName).use { svg.render(it, RenderMode.FILE) }
     }
 
-    private fun renderGrid(fileName: String) {
-        val svg = SVG.svg(true) {
+    private fun generateSVG(): SVG {
+        return SVG.svg(true) {
             height = (grid.rows * CELL_SIZE).toString()
             width = (grid.columns * CELL_SIZE).toString()
-            style {
-                body = """
-
-                 svg .black-stroke { stroke: black; stroke-width: 1; }
-                 svg .white-stroke { stroke: white; stroke-width: 1; }
-
-             """.trimIndent()
-            }
             grid.eachCell { cell -> cell(cell) }
         }
 
-        FileWriter(fileName).use { svg.render(it, RenderMode.FILE) }
     }
 
     private fun Container.cell(cell: Cell) {
@@ -40,7 +33,6 @@ class ImageMazePainter(private val grid: Grid) {
         g {
             id = "cell"
             rect {
-                cssClass = "white-stroke"
                 width = "${nextCellX - cellX}"
                 height = "${nextCellY - cellY}"
                 x = "$cellX"
@@ -49,17 +41,15 @@ class ImageMazePainter(private val grid: Grid) {
             }
             if (cell !is NullCell) {
                 rect {
-                    cssClass = "black-stroke"
                     width = "${nextCellX - cellX}"
                     height = "${nextCellY - cellY}"
                     x = "$cellX"
                     y = "$cellY"
-                    fill = styleFor(cell)
+                    fill = fillColourFor(cell)
                 }
             }
             g {
-                id = "doors"
-                cssClass = "black-stroke"
+                id = "walls"
                 if (!cell.isLinkedTo(cell.east)) {
                     verticalWall(nextCellX, cellY)
                 }
@@ -77,38 +67,39 @@ class ImageMazePainter(private val grid: Grid) {
     }
 
     private fun G.horizontalWall(cellX: Int, cellY: Int) {
-        rect {
-            width = "11"
-            height = "1"
-            x = "$cellX"
-            y = "$cellY"
-            fill = "black"
-        }
+        wall(cellX, cellY, 11, 1)
     }
 
     private fun G.verticalWall(cellX: Int, cellY: Int) {
+        wall(cellX, cellY, 1, 11)
+    }
+
+    private fun G.wall(cellX: Int, cellY: Int, wallWidth: Int, wallHeight: Int) {
         rect {
-            width = "1"
-            height = "11"
+            width = "$wallWidth"
+            height = "$wallHeight"
             x = "$cellX"
             y = "$cellY"
             fill = "black"
         }
     }
 
-    private fun styleFor(cell: Cell): String {
+    private fun fillColourFor(cell: Cell): String {
         if (grid is DistanceGrid) {
             val distances = grid.distances!!
             val distance = distances.distanceFor(cell) ?: return "#ffffff"
             val maximumDistance = distances.maxDistance().second
             val intensity = (maximumDistance - distance).toFloat() / maximumDistance
-            val dark = Integer.toHexString((255 * intensity).roundToInt())
-            val bright = Integer.toHexString(128 + (127 * intensity).roundToInt())
+            val dark = (255 * intensity).roundToInt()
+            val bright = 128 + (127 * intensity).roundToInt()
 
-            return "#${dark}${bright}${dark}"
+            return rgbToHexString(dark, bright, dark)
         } else {
             return "#ff0000"
         }
     }
+
+    private fun rgbToHexString(red: Int, green: Int, blue: Int) =
+        "#${Integer.toHexString(red)}${Integer.toHexString(green)}${Integer.toHexString(blue)}"
 
 }
