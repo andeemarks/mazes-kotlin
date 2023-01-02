@@ -1,6 +1,10 @@
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextColors.*
 import com.github.ajalt.mordant.rendering.TextStyle
+import com.github.nwillc.ksvg.RenderMode
+import com.github.nwillc.ksvg.elements.Container
+import com.github.nwillc.ksvg.elements.SVG
+import java.io.FileWriter
 
 private const val EMPTY_CELL_CONTENTS = "   "
 
@@ -15,8 +19,97 @@ class MazePainter(private val grid: Grid, private val cellColour: TextColors = g
     fun paint(): String {
         var display = ""
         grid.eachRow { row -> display += formatRow(row) }
+        renderGrid()
 
         return display.trim()
+    }
+
+    private fun renderGrid() {
+        val svg = SVG.svg(true) {
+            height = (grid.rows * 10).toString()
+            width = (grid.columns * 10).toString()
+            style {
+                body = """
+
+                 svg .black-stroke { stroke: black; stroke-width: 1; }
+                 svg .white-stroke { stroke: white; stroke-width: 1; }
+                 svg .fur-color { fill: white; }
+
+             """.trimIndent()
+            }
+            grid.eachCell { cell -> cell(cell) }
+        }
+
+        FileWriter("maze.svg").use { svg.render(it, RenderMode.FILE) }
+    }
+
+    private fun Container.cell(cell: Cell) {
+        g {
+            id = "cell"
+            rect {
+                cssClass = "white-stroke"
+                id = "cell"
+                width = "10"
+                height = "10"
+                x = "${cell.column * 10}"
+                y = "${cell.row * 10}"
+                fill = "white"
+            }
+            if (cell !is NullCell) {
+                rect {
+                    cssClass = "black-stroke"
+                    id = "cell"
+                    width = "8"
+                    height = "8"
+                    x = "${cell.column * 10 + 1}"
+                    y = "${cell.row * 10 + 1}"
+                }
+            }
+            g {
+                id = "doors"
+                cssClass = "black-stroke"
+                if (cell.isLinkedTo(cell.east)) {
+                    rect {
+                        id = "east-door"
+                        width = "2"
+                        height = "8"
+                        x = "${cell.column * 10 + 10}"
+                        y = "${cell.row * 10 + 1}"
+                        fill = "black"
+                    }
+                }
+                if (cell.isLinkedTo(cell.west)) {
+                    rect {
+                        id = "west-door"
+                        width = "2"
+                        height = "8"
+                        x = "${cell.column * 10 - 1}"
+                        y = "${cell.row * 10 + 1}"
+                        fill = "black"
+                    }
+                }
+                if (cell.isLinkedTo(cell.north)) {
+                    rect {
+                        id = "north-door"
+                        width = "8"
+                        height = "2"
+                        x = "${cell.column * 10 + 1}"
+                        y = "${cell.row * 10 - 1}"
+                        fill = "black"
+                    }
+                }
+                if (cell.isLinkedTo(cell.south)) {
+                    rect {
+                        id = "south-door"
+                        width = "8"
+                        height = "2"
+                        x = "${cell.column * 10 + 1}"
+                        y = "${cell.row * 10 + 10}"
+                        fill = "black"
+                    }
+                }
+            }
+        }
     }
 
     private fun formatRow(row: List<Cell>): String {

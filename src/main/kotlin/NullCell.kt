@@ -1,1 +1,1 @@
-class NullCell : Cell(-1, -1) {}
+class NullCell(row: Int, column: Int) : Cell(row, column) {}
