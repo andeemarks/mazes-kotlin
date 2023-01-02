@@ -3,6 +3,7 @@ import com.github.nwillc.ksvg.elements.Container
 import com.github.nwillc.ksvg.elements.G
 import com.github.nwillc.ksvg.elements.SVG
 import java.io.FileWriter
+import kotlin.math.roundToInt
 
 class ImageMazePainter(private val grid: Grid) {
 
@@ -48,6 +49,7 @@ class ImageMazePainter(private val grid: Grid) {
                     height = "8"
                     x = "${cellX + 1}"
                     y = "${cellY + 1}"
+                    fill = styleFor(cell)
                 }
             }
             g {
@@ -113,5 +115,19 @@ class ImageMazePainter(private val grid: Grid) {
         }
     }
 
+    private fun styleFor(cell: Cell): String {
+        if (grid is DistanceGrid) {
+            val distances = grid.distances!!
+            val distance = distances.distanceFor(cell) ?: return "#ffffff"
+            val maximumDistance = distances.maxDistance().second
+            val intensity = (maximumDistance - distance).toFloat() / maximumDistance
+            val dark = Integer.toHexString((255 * intensity).roundToInt())
+            val bright = Integer.toHexString(128 + (127 * intensity).roundToInt())
+
+            return "#${dark}${bright}${dark}"
+        } else {
+            return "#ff0000"
+        }
+    }
 
 }

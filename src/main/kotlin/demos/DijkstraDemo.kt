@@ -2,6 +2,7 @@ package demos
 
 import AsciiMazePainter
 import DistanceGrid
+import ImageMazePainter
 import algos.BinaryTree
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -28,6 +29,10 @@ class DijkstraDemo(private val style: TextStyle = TextColors.white) : Demoable {
         val (newGoal, _) = distances.maxDistance()
         grid.distances = distances.pathTo(newGoal)
         t.println("Longest path from (0, 0)...")
-        t.println((style)(AsciiMazePainter(grid, TextColors.red).paint()))
+        ImageMazePainter(grid).paint("dijkstra.svg")
     }
+}
+
+fun main() {
+    DijkstraDemo().run()
 }
