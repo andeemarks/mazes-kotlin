@@ -31,25 +31,8 @@ class ImageMazePainter(private val grid: Grid) {
         val nextCellY = (cell.row + 1) * CELL_SIZE
 
         g {
-            id = "cell"
-            rect {
-                width = "${nextCellX - cellX}"
-                height = "${nextCellY - cellY}"
-                x = "$cellX"
-                y = "$cellY"
-                fill = "white"
-            }
-            if (cell !is NullCell) {
-                rect {
-                    width = "${nextCellX - cellX}"
-                    height = "${nextCellY - cellY}"
-                    x = "$cellX"
-                    y = "$cellY"
-                    fill = fillColourFor(cell)
-                }
-            }
+            cell(cell, cellX, cellY, nextCellX - cellX, nextCellY - cellY)
             g {
-                id = "walls"
                 if (!cell.isLinkedTo(cell.east)) {
                     verticalWall(nextCellX, cellY)
                 }
@@ -62,6 +45,25 @@ class ImageMazePainter(private val grid: Grid) {
                 if (!cell.isLinkedTo(cell.south)) {
                     horizontalWall(cellX, nextCellY)
                 }
+            }
+        }
+    }
+
+    private fun G.cell(cell: Cell, cellX: Int, cellY: Int, cellWidth: Int, cellHeight: Int) {
+        rect {
+            width = "$cellWidth"
+            height = "$cellHeight"
+            x = "$cellX"
+            y = "$cellY"
+            fill = "white"
+        }
+        if (cell !is NullCell) {
+            rect {
+                width = "$cellWidth"
+                height = "$cellHeight"
+                x = "$cellX"
+                y = "$cellY"
+                fill = fillColourFor(cell)
             }
         }
     }
