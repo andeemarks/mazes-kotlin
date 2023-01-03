@@ -1,6 +1,7 @@
 package demos
 
 import AsciiMazePainter
+import ImageMazePainter
 import Mask
 import MaskedGrid
 import algos.RecursiveBacktracker
@@ -24,7 +25,7 @@ class SimpleMaskDemo : Demoable {
     private fun dslDescribedMask() {
         val mask = Mask.from(File("ascii-mask.txt").readLines())
         val grid = RecursiveBacktracker().on(MaskedGrid(mask))
-        t.println((TextColors.black)(AsciiMazePainter(grid).paint()))
+        ImageMazePainter(grid).paint("ascii-mask.svg")
     }
 
     private fun codeDescribedMask() {

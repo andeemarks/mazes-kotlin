@@ -21,7 +21,6 @@ class ImageMazePainter(private val grid: Grid) {
             width = (grid.columns * CELL_SIZE).toString()
             grid.eachCell { cell -> cell(cell) }
         }
-
     }
 
     private fun Container.cell(cell: Cell) {
@@ -55,16 +54,7 @@ class ImageMazePainter(private val grid: Grid) {
             height = "$cellHeight"
             x = "$cellX"
             y = "$cellY"
-            fill = "white"
-        }
-        if (cell !is NullCell) {
-            rect {
-                width = "$cellWidth"
-                height = "$cellHeight"
-                x = "$cellX"
-                y = "$cellY"
-                fill = fillColourFor(cell)
-            }
+            fill = fillColourFor(cell)
         }
     }
 
@@ -87,6 +77,10 @@ class ImageMazePainter(private val grid: Grid) {
     }
 
     private fun fillColourFor(cell: Cell): String {
+        if (cell is NullCell) {
+            return "black"
+        }
+
         if (grid is DistanceGrid) {
             val distances = grid.distances!!
             val distance = distances.distanceFor(cell) ?: return "#ffffff"
